@@ -10,20 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>철좀들어</title>
     <link rel="stylesheet" href="${path}/resources/css/index.css">
-    <link rel="stylesheet" href="${path}/resources/css/index_home.css">
 </head>
 <body>
 <div id="container">
         <div class="colume" id="logo">
         </div>
         <div class="colume" id="login_menu">
-            <div id="loginInfo" class="article">
-            <c:if test="${sessionScope.email==null }">
-                <a href="<c:url value='/login'/>">로그인</a>
-            </c:if>
-            <c:if test="${sessionScope.email!=null }">
-                <%@ include file="loginInfo.jsp" %>
-			</c:if>
+            <div class="article userInfo">
+	            <c:if test="${sessionScope.email==null }">
+	                <a href="<c:url value='/login'/>" id="login-button">로그인</a>
+	            </c:if>
+	            <c:if test="${sessionScope.email!=null }">
+	                <%@ include file="userInfo.jsp" %>
+				</c:if>
             </div>
             <div id="menu1" class="article button"><a href="#" id="menu1_a">상품구매</a></div>
             <div id="menu2" class="article button"><a href="#" id="menu2_a">PT예약</a></div>
