@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="../css/registerForm.css">
+</head>
+<body>
+    <div id="container">
+        <img src="../img/logo_nav.png" alt="logo">
+        <form action="#">
+            <h1>회원가입</h1>
+            <input type="email" name="email" id="email" placeholder="이메일" autocomplete="new-password">
+            <input type="password" name="pwd" id="pw" placeholder="비밀번호">
+            <input type="password" name="pwd_confirm" id="pw_confirm" placeholder="비밀번호 확인">
+            <div id="user_priv">
+                <input type="text" name="name" id="name" placeholder="이름" autocomplete="new-password">
+                <div id="gender">
+                    <label for="male"><input type="radio" name="gender" id="male" value="male"><span class="radio_icon"></span>남</label>
+                    <label for="female"><input type="radio" name="gender" id="female" value="female"><span class="radio_icon"></span>여</label>
+                </div>
+            </div>
+            <input type="tel" name="phone" id="phone" placeholder="휴대폰(-없이 입력)" autocomplete="new-password">
+            <div id="termsarea">
+                <label for="terms_user">
+                    <input type="checkbox" name="terms_user" id="terms_user">
+                    <span class="check_icon"></span>
+                    [필수]<a href="#">개인정보 수집 및 이용 약관</a>에 동의합니다.
+                </label>
+                <label for="terms_club">
+                    <input type="checkbox" name="terms_club" id="terms_club">
+                    <span class="check_icon"></span>
+                    [필수]<a href="#">철좀들어 이용 약관</a>에 동의합니다.
+                </label>
+            </div>
+            
+            <button type="submit" id="submit">이메일 인증</button>
+        </form>
+    </div>
+</body>
+</html>

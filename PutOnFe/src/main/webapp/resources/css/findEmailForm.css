@@ -1,0 +1,86 @@
+@font-face {
+    font-family: mkpB;
+    src: url(../fonts/H2mkpB.woff);
+}
+@font-face {
+    font-family: mbng;
+    src: url(../fonts/Mabinogi_Classic_OTF.woff);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:mkpB;}
+body{background-color: #121212;}
+a{text-decoration: none;}
+/* 컨테이너 */
+#container{
+    width: 560px; height: 480px;
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    padding:5px;
+    display: flex;
+    justify-content:flex-start;
+}
+/* 로고 */
+#container>img{
+    height:100%;
+}
+/* 박스 */
+#container>form{
+    width:100%;
+    margin-left:15px;
+    background-color: white;
+    border-radius: 10px;
+}
+/* 제목 */
+#container>form>h1{
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+    height: 110px;
+    line-height: 130px;
+    border-bottom:1px solid #121212;
+}
+/* 텍스트박스 */
+input{
+    display: block;
+    margin: 30px auto;
+    width: 60%; height: 45px;
+    padding: 7px;
+    background-color: #121212;
+    border:0;
+    color: white;
+    font:1em mbng;
+}
+input:focus{outline:none;}
+
+/*버튼 */
+#submit{
+    width:60%; height:40px;
+    display: block;
+    margin:30px auto;
+    border:1px solid #121212;
+    background-color: #121212;
+    color:white;
+    font-size : 1em;
+    cursor: pointer;
+}
+#foundEmail{
+    width: 70%; height:1px;
+    margin: 0 auto;
+    border:0;
+    border-top:1px solid #121212;
+    text-align: right;
+}
+#foundEmail>a{
+    color:#121212;
+    font-size:0.8em;
+}
+#foundEmail>a:last-of-type{
+    margin-right:10px;
+}
+#foundEmail>p{
+    width:100%; height:40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:0.8em;
+}

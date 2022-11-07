@@ -1,0 +1,105 @@
+@font-face {
+    font-family: mkpB;
+    src: url(../fonts/H2mkpB.woff);
+}
+@font-face {
+    font-family: mbng;
+    src: url(../fonts/Mabinogi_Classic_OTF.woff);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:mkpB;}
+body{background-color: #121212;}
+a{text-decoration: none;}
+/* 컨테이너 */
+#container{
+    width: 560px; height: 480px;
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    padding:5px;
+    display: flex;
+    justify-content:flex-start;
+}
+/* 로고 */
+#container>img{
+    height:100%;
+}
+/* 로그인 박스 */
+#container>form{
+    width:100%;
+    margin-left:15px;
+    background-color: white;
+    border-radius: 10px;
+}
+/* 로그인 */
+#container>form>h1{
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+    height: 110px;
+    line-height: 130px;
+    border-bottom:1px solid #121212;
+}
+/* 텍스트박스 */
+input:not([type=checkbox]){
+    display: block;
+    margin: 30px auto;
+    width: 60%; height: 45px;
+    padding: 7px;
+    background-color: #121212;
+    border:0;
+    color: white;
+    font:1em mbng;
+}
+#pw{
+    margin-bottom:10px;
+    font-family: Malgun gothic;
+}
+::placeholder{font-family:mbng;}
+input:not([type=checkbox]):focus{outline:none;}
+/* 체크박스 */
+#label_check{
+    font-size:0.8em;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 90px;
+    margin: 10px auto;
+    transform:translateX(90%);
+    cursor: pointer;
+}
+#remEmail{
+    display: none;
+}
+#checkbox_icon{
+    display: inline-block;
+    width:12px; height:12px;
+    border:1px solid #121212;
+    margin:2px 3px;
+}
+#remEmail:checked + #checkbox_icon{
+    background-color: #121212;
+}
+
+/* 로그인 버튼 */
+#loginSubmit{
+    width:60%; height:40px;
+    display: block;
+    margin:20px auto 27px auto;
+    border:1px solid #121212;
+    background-color: #121212;
+    color:white;
+    font-size : 1em;
+    cursor: pointer;
+}
+/* 찾기/가입 */
+#find{
+    width:70%;
+    margin:0 auto;
+    border-top:1px solid #121212;
+    padding: 5px;
+    text-align: center;
+}
+#find>a{
+    font-size:0.8em;
+    color:#121212;
+}

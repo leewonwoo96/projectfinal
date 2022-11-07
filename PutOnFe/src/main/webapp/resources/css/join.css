@@ -1,0 +1,125 @@
+@font-face {
+    font-family: mkpB;
+    src: url(../fonts/H2mkpB.woff);
+}
+@font-face {
+    font-family: mbng;
+    src: url(../fonts/Mabinogi_Classic_OTF.woff);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:mkpB;}
+body{background-color: #121212;}
+a{text-decoration: none;}
+/* 컨테이너 */
+#container{
+    width: 580px; height: 540px;
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    display: flex;
+    justify-content:flex-start;
+}
+/* 로고 */
+img{
+	width:100px;
+	margin-right:10px;
+}
+/* 회원가입 박스 */
+#container>form{
+    width:470px; height:100%;
+    background-color: white;
+    border-radius: 10px;
+}
+/* 회원가입 */
+h1{
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+    height: 80px;
+    line-height: 90px;
+    border-bottom:1px solid #121212;
+}
+/* 텍스트박스 */
+input:not([type=radio],[type=checkbox]){
+    display: block;
+    margin: 15px auto;
+    width: 60%; height: 40px;
+    padding: 7px;
+    background-color: #121212;
+    border:0;
+    color: white;
+    font:1em mbng;
+}
+input:focus{outline:none;}
+input[type=password]{font-family: malgun gothic;}
+::placeholder{font-family: mbng;}
+/* 이름 */
+#user_priv{
+    width:60%; height:45px;
+    margin: 15px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#name, #gender{
+    width:50%;
+}
+/* 성별 */
+#gender{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#gender>label{
+    margin:0 10px;
+    font-size:1em;
+}
+#gender>label>input{display: none;}
+.radio_icon{
+    display: inline-block;
+    width:15px; height:15px;
+    border:1px solid #121212;
+    margin:0 3px;
+}
+#gender>label>input:checked + .radio_icon{
+    background-color: #121212;
+}
+
+/* 이용약관 */
+#termsarea{
+    width:70%;
+    margin: 0 auto;
+    padding-bottom: 8px;
+    padding-left: 30px;
+    border-bottom: 1px solid #121212;
+}
+#termsarea>label{
+    display: block;
+    font-size:0.7em;
+    margin:10px auto;
+}
+#termsarea>label>a{
+    color:#121212;
+    text-decoration: underline;
+}
+input[type=checkbox]{display: none;}
+.check_icon{
+    display: inline-block;
+    width:12px; height:12px;
+    border:1px solid #121212;
+    margin:0 1px;
+}
+input[type=checkbox]:checked + .check_icon{
+    background-color: #121212;
+}
+
+/* 버튼 */
+#submit{
+    width:60%; height:48px;
+    display: block;
+    margin:20px auto;
+    border:1px solid #121212;
+    background-color: #121212;
+    color:white;
+    font-size : 1em;
+    cursor: pointer;
+}
