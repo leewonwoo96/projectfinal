@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>철좀들어</title>
-    <link rel="stylesheet" href="resources/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <link rel="stylesheet" href="resources/css/index_home.css">
 </head>
 <body>
@@ -30,10 +30,10 @@
 					<a href="#">더보기</a>
 				</div>
                 <ul id="rec_area">
-                    <li class="rec_post">추천 운동 정보 1</li>
-                    <li class="rec_post">추천 운동 정보 2</li>
-                    <li class="rec_post">추천 운동 정보 3</li>
-                    <li class="rec_post">추천 운동 정보 4</li>
+                    <li>추천 운동 정보 1</li>
+                    <li>추천 운동 정보 2</li>
+                    <li>추천 운동 정보 3</li>
+                    <li>추천 운동 정보 4</li>
                 </ul>
 			</div>
             <div id="matching" class="article">
