@@ -103,6 +103,9 @@ li{list-style: none;}
     grid-template-rows: repeat(1fr,4);
 }
 #rec_area>li{
+    display : flex;
+    justify-content:center;
+    align-items:center;
     border:1px solid yellow;
 }
 

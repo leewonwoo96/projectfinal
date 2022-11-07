@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>철좀들어</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
-    <link rel="stylesheet" href="resources/css/index_home.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index_home.css">
 </head>
 <body>
 <div id="container">
