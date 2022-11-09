@@ -76,12 +76,6 @@ public class Ctrl_Home {
 		User user = navBar(session,m,hsReq);
 		return "board_recommend";
 	}
-//	헬스메이트 매칭
-	@GetMapping("/matching")
-	public String matching(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
-		User user = navBar(session,m,hsReq);
-		return "board_matching";
-	}
 //	클럽 시설 정보
 	@GetMapping("/machines")
 	public String machines(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
@@ -96,6 +90,13 @@ public class Ctrl_Home {
 		List<BigThree> list = userDao.bigThreeRank();
 		m.addAttribute("list",list);
 		return "bigThree";
+	}
+//	헬스메이트 매칭
+	@GetMapping("/matching")
+	public String matching(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
+		User user = navBar(session,m,hsReq);
+		if(user==null) return "redirect:/login";
+		return "board_matching";
 	}
 //	오시는 길
 	@GetMapping("/road")
