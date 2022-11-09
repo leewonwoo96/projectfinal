@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>철좀들어-마이페이지</title>
 <link rel="stylesheet" href="${path}/resources/css/myPage.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 <%@ include file="navMenu.jsp" %>
@@ -34,7 +35,6 @@
 	</div>
 </div>
 </body>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 let tel = "${user.user_tel}";
 let user_tel= tel.substring(0,3)+"-"+tel.substring(3,7)+"-"+tel.substring(7);

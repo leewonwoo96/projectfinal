@@ -1,5 +1,6 @@
 package com.putupiron.pufe;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,13 +11,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.putupiron.pufe.dao.MachineDao;
+import com.putupiron.pufe.dao.RecommendDao;
 import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.BigThree;
+import com.putupiron.pufe.dto.Machine;
+import com.putupiron.pufe.dto.Recommend;
 import com.putupiron.pufe.dto.User;
+import com.putupiron.pufe.vo.PageHandler;
+import com.putupiron.pufe.vo.SearchCondition;
 
 @Controller
 public class Ctrl_Home {
 	@Autowired UserDao userDao;
+	@Autowired MachineDao machineDao;
+	@Autowired RecommendDao recDao;
 
 //	홈 화면
 	@GetMapping("/")
@@ -72,15 +81,24 @@ public class Ctrl_Home {
 	}
 //	추천운동정보
 	@GetMapping("/recommend")
-	public String recommend(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
-		User user = navBar(session,m,hsReq);
-		return "board_recommend";
+	public String recommend(SearchCondition sc, HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
+		navBar(session,m,hsReq);
+		int totalCnt = recDao.searchCnt(sc);
+		PageHandler ph = new PageHandler(totalCnt,sc);
+		List<Recommend> list= recDao.search(sc);
+		Date now= new Date();
+		m.addAttribute("now",now);
+		m.addAttribute("list",list);
+		m.addAttribute("ph",ph);
+		return "boarder_recommend";
 	}
 //	클럽 시설 정보
 	@GetMapping("/machines")
 	public String machines(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
-		User user = navBar(session,m,hsReq);
-		return "board_machines";
+		navBar(session,m,hsReq);
+		List<Machine> machineList=machineDao.selectAllMachines();
+		m.addAttribute("machineList", machineList);
+		return "boarder_machines";
 	}
 //	Big3 랭킹
 	@GetMapping("/bigThree")
@@ -96,12 +114,12 @@ public class Ctrl_Home {
 	public String matching(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
 		User user = navBar(session,m,hsReq);
 		if(user==null) return "redirect:/login";
-		return "board_matching";
+		return "boarder_matching";
 	}
 //	오시는 길
 	@GetMapping("/road")
 	public String road(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
-		User user = navBar(session,m,hsReq);
+		navBar(session,m,hsReq);
 		return "road";
 	}
 //	마이페이지

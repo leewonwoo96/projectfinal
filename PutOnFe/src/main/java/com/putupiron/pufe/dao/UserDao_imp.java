@@ -58,4 +58,8 @@ public class UserDao_imp implements UserDao {
 	public Integer userBig3Rank(String email) throws Exception {
 		return session.selectOne(namespace+"userBig3Rank",email);
 	}
+	@Override
+	public String findUserName(String email) throws Exception {
+		return session.selectOne(namespace+"findUserName",email);
+	}
 }

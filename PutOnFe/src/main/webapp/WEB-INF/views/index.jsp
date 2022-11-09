@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>철좀들어</title>
     <link rel="stylesheet" href="${path}/resources/css/index.css">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 <div id="container">
@@ -59,6 +60,32 @@
 				<div class="top_bar">
 					<p>클럽 기구 정보</p>
 					<a href="<c:url value='/machines'/>">더보기</a>
+				</div>
+				<div class="slide">
+				   	<img id="img1" src="${path }/resources/img/anchovy.png">
+					<img id="img2" src="${path }/resources/img/logo_nav.png">
+					<img id="img3" src="${path }/resources/img/logo_main.png">
+				    <button id="prev">&lang;</button>
+				    <button id="next">&rang;</button>
+					<script>
+						let img_cnt=0;
+						let imgs=$('.slide').find('img');
+						showing(img_cnt);
+						function showing(n){
+							imgs.hide();
+							$.each(imgs,function(index,img){
+								if(index==n) $(img).show();
+							});
+						}
+						$('#prev').click(function(){
+							if(img_cnt==0) img_cnt=imgs.length;
+							showing(--img_cnt);
+						});
+						$('#next').click(function(){
+							if(++img_cnt==imgs.length) img_cnt=0;
+							showing(img_cnt);
+						});
+					</script>
 				</div>
 			</div>
 		</div>

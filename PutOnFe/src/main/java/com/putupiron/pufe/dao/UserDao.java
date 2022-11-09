@@ -14,4 +14,5 @@ public interface UserDao {
 	int		resetPw(String email, String pwd) throws Exception;
 	List<BigThree>	bigThreeRank() throws Exception;
 	Integer userBig3Rank(String email) throws Exception;
+	String	findUserName(String email) throws Exception;
 }

@@ -14,7 +14,7 @@
 <body>
 <%@ include file="navMenu.jsp" %>
 <div class="container">
-헬스메이트 매칭
+헬스메이트 매칭 게시글 작성 페이지
 </div>
 </body>
 </html>
