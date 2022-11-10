@@ -62,4 +62,16 @@ public class UserDao_imp implements UserDao {
 	public String findUserName(String email) throws Exception {
 		return session.selectOne(namespace+"findUserName",email);
 	}
+	@Override
+	public int modify(String email, String name, String phone) throws Exception {
+		Map<String,String> map= new HashMap<>();
+		map.put("user_email", email);
+		map.put("user_name", name);
+		map.put("user_tel", phone);
+		return session.update(namespace+"modify",map);
+	}
+	@Override
+	public int unregister(String email) throws Exception {
+		return session.delete(namespace+"unregister",email);
+	}
 }

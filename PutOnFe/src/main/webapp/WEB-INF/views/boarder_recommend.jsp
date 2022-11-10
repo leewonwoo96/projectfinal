@@ -31,7 +31,7 @@
 				<fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd"/>
 				<fmt:formatDate var="rec_date" value="${board.rec_date}" pattern="yyyy-MM-dd"/>
 				<c:choose>
-					<c:when test="${today<=reg_date }">
+					<c:when test="${today<=rec_date }">
 						<td class="recdate"><fmt:formatDate value="${board.rec_date }" pattern="HH:mm" type="time"/></td>
 					</c:when>
 					<c:otherwise>

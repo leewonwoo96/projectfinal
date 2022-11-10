@@ -29,7 +29,6 @@ a{color:black;}
 .contents{
 	width:900px;
 	height: 480px;
-	text-align:center;
 }
 .contents>h1{
 	font-size:30px;
@@ -39,25 +38,44 @@ a{color:black;}
 	padding-left:50px;
 }
 .contents>form{
-	width:100%; height:100%;
-	border:2px solid #121212
+	width:100%; height:auto;
+	padding-bottom: 20px;
+	text-align:right;
+}
+.contents>form>.info{
+	border:2px solid #121212;
+	margin-bottom:10px;
 }
 .contents label{
 	display:flex;
 	justify-content:start;
 	align-items:center;
+	text-align:center;
 	height:70px;
 }
 .contents label>span{
 	display:inline-block;
-	width: 200px;
+	width: 250px;
 	border-right:1px solid #aaa;
 }
 .contents label>input{
 	border:0;
-	width: 700px;
+	width: 250px; height:40px;
+	margin:0 auto;
 	text-align:center;
 }
 .contents label>input:focus{
 	outline:none;
+}
+.contents label>input[type=password]{
+	background-color:#121212;
+	color:white;
+}
+.button{
+	width: 200px;
+	height:40px;
+	border:none;
+	background-color:#121212;
+	color:white;
+	cursor:pointer;
 }

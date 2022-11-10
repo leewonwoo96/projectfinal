@@ -62,9 +62,9 @@
 					<a href="<c:url value='/machines'/>">더보기</a>
 				</div>
 				<div class="slide">
-				   	<img id="img1" src="${path }/resources/img/anchovy.png">
-					<img id="img2" src="${path }/resources/img/logo_nav.png">
-					<img id="img3" src="${path }/resources/img/logo_main.png">
+				   	<img src="${path }/resources/img/anchovy.png">
+					<img src="${path }/resources/img/logo_nav.png">
+					<img src="${path }/resources/img/logo_main.png">
 				    <button id="prev">&lang;</button>
 				    <button id="next">&rang;</button>
 					<script>
@@ -117,5 +117,9 @@
 		</div>
 	</div>
 </div>
+<script>
+let msg= "${msg}";
+if(msg=="unregisterSuccessed") alert("회원탈퇴가 정상적으로 처리되었습니다.");
+</script>
 </body>
 </html>

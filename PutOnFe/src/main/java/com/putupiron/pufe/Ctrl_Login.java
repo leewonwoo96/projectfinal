@@ -21,14 +21,7 @@ import com.putupiron.pufe.dto.User;
 public class Ctrl_Login {
 	@Autowired
 	UserDao userDao;
-	
-//	네비게이션 바에 세션의 유저 정보 전송
-	public User navBar(HttpSession session, Model m) throws Exception {
-		String user_email = (String)session.getAttribute("email");
-		User user = userDao.selectUser(user_email);
-		m.addAttribute("user",user);
-		return user;
-	}
+
 //	로그인 화면
 	@GetMapping()
 	public String login_get() {
@@ -38,7 +31,7 @@ public class Ctrl_Login {
 	@PostMapping()
 	public String login(String email, String pwd, String toURL, boolean remEmail, HttpServletRequest req, HttpServletResponse resp, RedirectAttributes ras) throws Exception{
 		if(!loginCheck(email,pwd)) {
-			ras.addFlashAttribute("loginCheck","false");
+			ras.addFlashAttribute("msg","아이디 혹은 비밀번호 오류입니다.");
 			return "redirect:/login"; // 이메일-비밀번호 확인
 		}
 		HttpSession session = req.getSession();

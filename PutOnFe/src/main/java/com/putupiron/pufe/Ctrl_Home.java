@@ -86,8 +86,7 @@ public class Ctrl_Home {
 		int totalCnt = recDao.searchCnt(sc);
 		PageHandler ph = new PageHandler(totalCnt,sc);
 		List<Recommend> list= recDao.search(sc);
-		Date now= new Date();
-		m.addAttribute("now",now);
+		m.addAttribute("now",new Date());
 		m.addAttribute("list",list);
 		m.addAttribute("ph",ph);
 		return "boarder_recommend";
@@ -127,6 +126,8 @@ public class Ctrl_Home {
 	public String myPage(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
 		User user = navBar(session,m,hsReq);
 		if(user==null) return "redirect:/login";
+		m.addAttribute("menu","info");
+		m.addAttribute("page","show");
 		return "myPage";
 	}
 }

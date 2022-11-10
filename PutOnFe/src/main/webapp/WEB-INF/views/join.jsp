@@ -45,10 +45,7 @@
     </div>
 <script>
 	let msg="${msg}";
-	if(msg=="PwDiscord") alert("비밀번호 불일치");
-	if(msg=="TermsNotAgreed") alert("모든 약관에 동의하셔야 합니다.");
-	if(msg=="DuplicateEmail") alert("이미 가입된 이메일입니다.");
-	if(msg=="JoinFailed") alert("알 수 없는 이유로 회원가입에 실패했습니다.");
+	if(msg!="") alert(msg);
 </script>
 </body>
 </html>

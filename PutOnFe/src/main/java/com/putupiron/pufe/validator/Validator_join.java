@@ -16,10 +16,10 @@ public class Validator_join implements Validator {
 	public void validate(Object target, Errors errors) {
 		JoinData jd = (JoinData)target;
 		if(!jd.getUser_pw().equals(jd.getPw_confirm()))
-			errors.rejectValue("user_pw","PwDiscord");
+			errors.rejectValue("user_pw","비밀번호가 일치하지 않습니다.");
 		if(jd.getTerms_user()==null)
-			errors.rejectValue("terms_user","TermsNotAgreed");
+			errors.rejectValue("terms_user","모든 약관에 동의하셔야 합니다.");
 		if(jd.getTerms_club()==null)
-			errors.rejectValue("terms_club", "TermsNotAgreed");
+			errors.rejectValue("terms_club", "모든 약관에 동의하셔야 합니다.");
 	}
 }

@@ -15,4 +15,6 @@ public interface UserDao {
 	List<BigThree>	bigThreeRank() throws Exception;
 	Integer userBig3Rank(String email) throws Exception;
 	String	findUserName(String email) throws Exception;
+	int		modify(String email, String name, String phone) throws Exception;
+	int		unregister(String email) throws Exception;
 }
