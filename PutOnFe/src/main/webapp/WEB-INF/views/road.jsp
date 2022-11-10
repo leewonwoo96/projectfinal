@@ -24,7 +24,8 @@
 	    주차가능
 	</div>
 	<div class="map_location">
-    	<div class="bus"><div class="info" style="font-size: 140%;"> 교통정보</div>
+    	<div class="bus">
+    		<div class="info" style="font-size: 140%;"> 교통정보</div>
 	    	<div style="font-size: 80%;"> <br>
 				[버스]<br>
 				- 가산디지털단지역 하차<br>

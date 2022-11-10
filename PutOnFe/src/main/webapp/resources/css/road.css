@@ -1,7 +1,6 @@
 .container{
-	height: 600px;
 	width: 600px;
-	margin: auto;
+	margin: 100px auto;
 }
 .address_box01{
     border-top: 3px solid black;
@@ -30,9 +29,10 @@ iframe{
 .map_location {
 	display:grid;
 	width: 600px;
-	margin: auto;
 	text-align: center;
-	margin-top: 20px;
+	margin: 30px auto;
+	padding-bottom : 30px;
+	border-bottom:1px solid black;
 }
 .bus{
 	grid-column: 1/2;
@@ -40,5 +40,4 @@ iframe{
 }
 .parking{
     grid-column:2/2 ;
-    grid-row: ;
 }
