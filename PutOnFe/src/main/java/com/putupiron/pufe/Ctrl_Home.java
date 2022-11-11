@@ -18,6 +18,7 @@ import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.Machine;
 import com.putupiron.pufe.dto.Recommend;
 import com.putupiron.pufe.dto.User;
+import com.putupiron.pufe.dto.UserView;
 import com.putupiron.pufe.vo.PageHandler;
 import com.putupiron.pufe.vo.SearchCondition;
 
@@ -58,6 +59,9 @@ public class Ctrl_Home {
 		case "T":
 			return "menu_trainer1";
 		case "A":
+			List<UserView> list=userDao.allUserView();
+			m.addAttribute("list",list);
+			m.addAttribute("now",new Date());
 			return "menu_admin1";
 		default:
 			return "redirect:/login";

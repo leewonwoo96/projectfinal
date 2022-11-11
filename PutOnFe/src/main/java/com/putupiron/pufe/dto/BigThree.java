@@ -14,11 +14,10 @@ public class BigThree {
 	private	int		benchpress;
 	private int		deadlift;
 	
-	public BigThree(String user_email, int squat, int benchpress, int deadlift) {
-		super();
-		this.user_email = user_email;
-		this.squat = squat;
-		this.benchpress = benchpress;
-		this.deadlift = deadlift;
-	}
+//	public BigThree(String user_email, int squat, int benchpress, int deadlift) {
+//		this.user_email = user_email;
+//		this.squat = squat;
+//		this.benchpress = benchpress;
+//		this.deadlift = deadlift;
+//	}
 }

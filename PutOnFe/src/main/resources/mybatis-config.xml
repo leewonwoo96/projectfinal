@@ -7,6 +7,8 @@
 		<typeAlias alias="BigThree" type="com.putupiron.pufe.dto.BigThree"/>
 		<typeAlias alias="Machine" type="com.putupiron.pufe.dto.Machine"/>
 		<typeAlias alias="Recommend" type="com.putupiron.pufe.dto.Recommend"/>
+		<typeAlias alias="UserView" type="com.putupiron.pufe.dto.UserView"/>
+		
 		<typeAlias alias="SearchCondition" type="com.putupiron.pufe.vo.SearchCondition"/>
 	</typeAliases>
 </configuration>

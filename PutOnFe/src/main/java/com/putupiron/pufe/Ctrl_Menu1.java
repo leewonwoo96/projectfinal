@@ -5,9 +5,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.putupiron.pufe.dao.UserDao;
+import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.User;
 
 @Controller
@@ -21,5 +23,12 @@ public class Ctrl_Menu1 {
 		User user = userDao.selectUser(user_email);
 		m.addAttribute("user",user);
 		return user;
+	}
+	
+//	회원3대기록변경
+	@PostMapping("/editBig3")
+	public String editBig3(BigThree big3, HttpSession session, Model m) throws Exception{
+		navBar(session,m);
+		return "redirect:/menu1";
 	}
 }

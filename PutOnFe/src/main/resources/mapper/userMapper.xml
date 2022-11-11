@@ -40,4 +40,8 @@
 	<delete id="unregister" parameterType="String">
 		delete from user where user_email=#{email}
 	</delete>
+	<!-- 회원정보 출력(일반회원) -->
+	<select id="selectAllUserView" resultType="UserView">
+		select * from user_view;
+	</select>
 </mapper>

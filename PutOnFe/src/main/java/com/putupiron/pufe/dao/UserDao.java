@@ -5,6 +5,7 @@ import java.util.List;
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.JoinData;
 import com.putupiron.pufe.dto.User;
+import com.putupiron.pufe.dto.UserView;
 
 public interface UserDao {
 	User	selectUser(String user_email) throws Exception;
@@ -17,4 +18,5 @@ public interface UserDao {
 	String	findUserName(String email) throws Exception;
 	int		modify(String email, String name, String phone) throws Exception;
 	int		unregister(String email) throws Exception;
+	List<UserView> allUserView() throws Exception;
 }

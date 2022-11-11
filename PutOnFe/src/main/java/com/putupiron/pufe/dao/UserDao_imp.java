@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.JoinData;
 import com.putupiron.pufe.dto.User;
+import com.putupiron.pufe.dto.UserView;
 
 @Repository
 public class UserDao_imp implements UserDao {
@@ -73,5 +74,9 @@ public class UserDao_imp implements UserDao {
 	@Override
 	public int unregister(String email) throws Exception {
 		return session.delete(namespace+"unregister",email);
+	}
+	@Override
+	public List<UserView> allUserView() throws Exception {
+		return session.selectList(namespace+"selectAllUserView");
 	}
 }

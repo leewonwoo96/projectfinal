@@ -36,7 +36,7 @@
 }
 .container tr{
 	display:grid;
-	grid-template-columns:repeat(9,1fr);
+	grid-template-columns:repeat(10,1fr);
 }
 .container tr:nth-of-type(odd){
 	background-color:#eee;
