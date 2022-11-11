@@ -18,4 +18,30 @@
 	<update id="resetPw" parameterType="map">
 		update user set user_pw=#{user_pw} where user_email=#{user_email}
 	</update>
+	<!-- Big3 랭킹집계 -->
+	<select id="bigThreeRank" resultType="BigThree">
+		select rank() over (order by squat+benchpress+deadlift desc) as ranking, user_email, user_name,	(squat+benchpress+deadlift) as big3, squat, benchpress, deadlift
+		from user
+		order by big3 desc, user_name desc
+	</select>
+	<!-- 유저 Big3 랭킹정보 -->
+	<select id="userBig3Rank" parameterType="String" resultType="int">
+		select ranking from rankingView where user_email=#{email};
+	</select>
+	<!-- 유저 이름 찾기 -->
+	<select id="findUserName" parameterType="String" resultType="String">
+		select user_name from user where user_email=#{email}
+	</select>
+	<!-- 회원정보 변경 -->
+	<update id="modify" parameterType="map">
+		update user set user_name=#{user_name}, user_tel=#{user_tel} where user_email=#{user_email}
+	</update>
+	<!-- 회원 탈퇴 -->
+	<delete id="unregister" parameterType="String">
+		delete from user where user_email=#{email}
+	</delete>
+	<!-- 회원정보 출력(일반회원) -->
+	<select id="selectAllUserView" resultType="UserView">
+		select * from user_view;
+	</select>
 </mapper>

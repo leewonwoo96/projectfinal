@@ -13,6 +13,7 @@ a{text-decoration: none;}
     background-color: #121212;
     position:fixed;
     top:0; left:0;
+    z-index:10;
 }
 @media (max-width:1100px){
     #nav_menu{
@@ -29,6 +30,7 @@ a{text-decoration: none;}
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index:10;
 }
 .menu:not([id=logo])>a:hover{background-color: black;}
 

@@ -29,15 +29,12 @@
                 <a href="<c:url value='/login/resetPw/find'/>">비밀번호 찾기</a> |
                 <a href="<c:url value='/join'/>">회원가입</a>
             </div>
+            <input type="hidden" name="toURL" value="${param.toURL }">
         </form>
     </div>
 <script>
-	let loginCheck = "${loginCheck}";
-	if(loginCheck=="false") alert("아이디 또는 비밀번호가 틀렸습니다.");
-	
 	let msg="${msg}";
-	if(msg=="JoinSuccess") alert("회원가입 완료");
-	if(msg=="ResetSuccess") alert("비밀번호 변경 완료");
+	if(msg!="") alert(msg);
 </script>
 </body>
 </html>

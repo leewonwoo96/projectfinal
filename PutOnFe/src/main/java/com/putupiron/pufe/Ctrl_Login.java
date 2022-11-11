@@ -13,22 +13,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.putupiron.pufe.dao.UserDao;
+import com.putupiron.pufe.dto.User;
+
 @Controller
 @RequestMapping("/login")
 public class Ctrl_Login {
 	@Autowired
 	UserDao userDao;
-	
+
 //	로그인 화면
 	@GetMapping()
 	public String login_get() {
 		return "login";
 	}
-//	로그인 버튼 누를시
+//	로그인 버튼
 	@PostMapping()
-	public String login(String email, String pwd, boolean remEmail, HttpServletRequest req, HttpServletResponse resp, RedirectAttributes ras) throws Exception{
+	public String login(String email, String pwd, String toURL, boolean remEmail, HttpServletRequest req, HttpServletResponse resp, RedirectAttributes ras) throws Exception{
 		if(!loginCheck(email,pwd)) {
-			ras.addFlashAttribute("loginCheck","false");
+			ras.addFlashAttribute("msg","아이디 혹은 비밀번호 오류입니다.");
 			return "redirect:/login"; // 이메일-비밀번호 확인
 		}
 		HttpSession session = req.getSession();
@@ -39,13 +42,20 @@ public class Ctrl_Login {
 			cookie.setMaxAge(0);
 			resp.addCookie(cookie);
 		}
-		return "redirect:/";
+		if(toURL==null || toURL.equals("")) toURL="/";
+		return "redirect:"+toURL;
 	}
 //	로그인 유효성 체크
 	public boolean loginCheck(String email, String pwd) throws Exception{
 		User user = userDao.selectUser(email);
 		if(user==null) return false;
 		return user.getUser_pw().equals(pwd);
+	}
+//	로그아웃 버튼
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 //	이메일 찾기
 	@GetMapping("/findEmail")
