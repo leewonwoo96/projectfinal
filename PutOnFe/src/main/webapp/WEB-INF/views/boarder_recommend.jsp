@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,36 +15,43 @@
 </head>
 <body>
 <%@ include file="navMenu.jsp" %>
+
 <div class="container">
-	<table class="table table-striped table-hover">
+
+<h1>추천 운동 정보</h1>
+
+	<table>
+	
 		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성자</th>
-			<th>날짜</th>
-			<th>조회</th>
+			<th style="width: 10%;">번호</th>
+			<th style="width: 40%;">제목</th>
+			<th style="width: 20%;">작성자</th>
+			<th style="width: 20%;">날짜</th>
+			<th style="width: 10%;">조회</th>
 		</tr>
 		<c:forEach var="board" items="${list }">
 			<tr>
 				<td>${board.rec_num }</td>
-				<td><a href="<c:url value='/recommend/read${ph.sc.queryString }&rec_num=${board.rec_num }'/>">${board.rec_title }</a></td>
+				<td ><a href="<c:url value='/recommend/read${ph.sc.queryString }&rec_num=${board.rec_num }'/>" style="color: black">${board.rec_title }</a></td>
 				<td>${board.user_email }</td>
-				<fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd"/>
+				
+		         <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd"/>
 				<fmt:formatDate var="rec_date" value="${board.rec_date}" pattern="yyyy-MM-dd"/>
-				<c:choose>
-					<c:when test="${today<=rec_date }">
-						<td class="recdate"><fmt:formatDate value="${board.rec_date }" pattern="HH:mm" type="time"/></td>
-					</c:when>
-					<c:otherwise>
-						<td class="recdate"><fmt:formatDate value="${board.rec_date }" pattern="yyyy-MM-dd" type="date"/></td>
-					</c:otherwise>
-				</c:choose>
+		         <c:choose>	
+		            <c:when test="${ today<=rec_date}">
+		              <td class="regdate"><fmt:formatDate value="${board.rec_date}" pattern="HH:mm" type="time"/></td>
+		            </c:when>
+		            <c:otherwise>
+		              <td class="regdate"><fmt:formatDate value="${board.rec_date}" pattern="yyyy-MM-dd" type="date"/></td>
+		            </c:otherwise>
+		          </c:choose>
+				
 				<td>${board.views }</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<div id="tools">
-		<button type="button" class="btn" id="writeBtn" onclick="location.href='<c:url value="/recommend/write"/>'">글쓰기</button>
+		<button type="button" class="btn" id="writeBtn" onclick="location.href='<c:url value="/recommend/write"/>'" style="float:right;">글쓰기</button>
 		<div class="search-container">
 			<form action="<c:url value="/recommend"/>" class="search-form" method="get">
 				<select class="form-control" name="option">
@@ -52,27 +60,28 @@
 					<option value="C" ${ph.sc.option=='C'? "selected":""}>내용</option>
 				</select>
 				<input type="text" name="keyword" class="form-control" value="${ph.sc.keyword }" placeholder="검색어 입력">
-				<input type="submit" class="btn btn-default" value="검색">
+				<input type="submit" class="btn" value="검색">
 			</form>
 		</div>
+		
 	</div>
-	<nav>
-		<ul class="pagination">
-			<c:if test="${ph.showPrev }">
-				<li><a href="<c:url value='/recommend${ph.sc.getQueryString(ph.beginPage-1)}'/>" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a></li>
-			</c:if>
-			<c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-				<li ${i==ph.sc.getPage()?'class="active"':'' }><a href="<c:url value='/recommend${ph.sc.getQueryString(i)}'/>">${i }</a></li>
-			</c:forEach>
-			<c:if test="${ph.showNext }">
-				<li><a href="<c:url value='/recommend${ph.sc.getQueryString(ph.endPage+1)}'/>" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</c:if>
-		</ul>
-	</nav>
+	<br>
+<div>
+			<ul class="pagination">
+				<li><c:if test="${ph.showPrev }">
+						<a
+							href="<c:url value='/recommend${ph.sc.getQueryString(ph.beginPage-1) } ' />">&laquo;</a>
+					</c:if></li>
+				<li><c:forEach var="i" begin="${ph.beginPage }"
+						end="${ph.endPage }">
+						<a href="<c:url value='/recommend${ph.sc.getQueryString(i) }'/>">${i }</a>
+					</c:forEach></li>
+				<li><c:if test="${ph.showNext }">
+						<a
+							href="<c:url value='/recommend${ph.sc.getQueryString(ph.endPage+1) }'/>">&raquo;</a>
+					</c:if></li>
+			</ul>
+		</div>
 </div>
 <script>
 	let msg="${msg}";

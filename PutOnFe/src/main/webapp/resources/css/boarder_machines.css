@@ -9,9 +9,9 @@ li {list-style:none;}
 }
 .title{
 	margin:100px auto 20px auto;
-	width:300px;
+	width:400px;
 	text-align:center;
-	font-size:30px;
+	font-size:40px;
 	line-height:30px;
 }
 .btn_toggle{
