@@ -12,6 +12,7 @@ public class UserView {
 	private	String	user_tel;
 	private	String	prod_name;
 	private	Date	buy_date;
+	private Date	end_date;
 	private	Integer	remain;
 	private	String	trainer;
 	private	Integer	days;

@@ -42,7 +42,7 @@
 			<td class="tel">${user.user_tel}</td>
 			<td>${user.prod_name }</td>
 			<td><fmt:formatDate value="${user.buy_date}" pattern="yyyy-MM-dd" type="date"/></td>
-			<td><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" type="date"/></td>
+			<td><fmt:formatDate value="${user.end_date}" pattern="yyyy-MM-dd" type="date"/></td>
 			<td>${user.remain }</td>
 			<td>${user.trainer }</td>
 			<td>${user.days }</td>

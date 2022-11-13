@@ -61,7 +61,6 @@ public class Ctrl_Home {
 		case "A":
 			List<UserView> list=userDao.allUserView();
 			m.addAttribute("list",list);
-			m.addAttribute("now",new Date());
 			return "menu_admin1";
 		default:
 			return "redirect:/login";
