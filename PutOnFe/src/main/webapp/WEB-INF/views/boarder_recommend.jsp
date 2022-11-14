@@ -33,7 +33,7 @@
 			<tr>
 				<td>${board.rec_num }</td>
 				<td ><a href="<c:url value='/recommend/read${ph.sc.queryString }&rec_num=${board.rec_num }'/>" style="color: black">${board.rec_title }</a></td>
-				<td>${board.user_email }</td>
+				<td>${board.user_name }</td>
 				
 		         <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd"/>
 				<fmt:formatDate var="rec_date" value="${board.rec_date}" pattern="yyyy-MM-dd"/>

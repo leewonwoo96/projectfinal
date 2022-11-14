@@ -16,6 +16,7 @@ public class Recommend {
 	private Integer	rec_num;
 	private String	rec_title;
 	private	String	user_email;
+	private	String	user_name;
 	private String	rec_content;
 	private	int		views;
 	private	int		rec_comments;

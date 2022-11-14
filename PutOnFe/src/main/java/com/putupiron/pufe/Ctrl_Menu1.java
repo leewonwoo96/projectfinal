@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.BigThree;
@@ -25,10 +26,27 @@ public class Ctrl_Menu1 {
 		return user;
 	}
 	
-//	회원3대기록변경
+//	관리자-회원3대기록변경
 	@PostMapping("/editBig3")
-	public String editBig3(BigThree big3, HttpSession session, Model m) throws Exception{
+	public String admin_editBig3(BigThree big3, String viewType, HttpSession session, Model m, RedirectAttributes ras) throws Exception{
 		navBar(session,m);
-		return "redirect:/menu1";
+		if(userDao.big3Edit(big3)!=1) ras.addFlashAttribute("msg","알 수 없는 이유로 변경에 실패했습니다.");
+		if(viewType==null) viewType="user";
+		return "redirect:/menu1?viewType="+viewType;
+	}
+//	관리자-회원유형변경
+	@PostMapping("/editType")
+	public String admin_editType(String userType, String user_email, String viewType, HttpSession session, Model m, RedirectAttributes ras) throws Exception{
+		navBar(session,m);
+		if(userDao.changeUserType(user_email, userType)!=1) ras.addFlashAttribute("msg","알 수 없는 이유로 변경에 실패했습니다.");
+		if(viewType==null) viewType="user";
+		return "redirect:/menu1?viewType="+viewType;
+	}
+//	관리자-전담PT변경
+	@PostMapping("/editTrainer")
+	public String admin_editPT(String user_email, String changeTrainer, HttpSession session, Model m, RedirectAttributes ras) throws Exception{
+		navBar(session,m);
+		if(userDao.changeTrainer(user_email, changeTrainer)!=1) ras.addFlashAttribute("msg","알 수 없는 이유로 변경에 실패했습니다.");
+		return "redirect:/menu1?viewType=user";
 	}
 }

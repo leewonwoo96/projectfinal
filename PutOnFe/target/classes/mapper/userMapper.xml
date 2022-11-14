@@ -42,6 +42,40 @@
 	</delete>
 	<!-- 회원정보 출력(일반회원) -->
 	<select id="selectAllUserView" resultType="UserView">
-		select * from user_view;
+		select user_view.*, username.name as trainer_name
+		from user_view left join username on user_view.trainer=username.email;
 	</select>
+	<!-- 회원 3대중량 기록 변경 -->
+	<select id="big3Edit" parameterType="BigThree">
+		update user set squat=#{squat}, benchpress=#{benchpress}, deadlift=#{deadlift} where user_email=#{user_email}
+	</select>
+	<!-- 회원정보 출력(트레이너) -->
+	<select id="selectAllTrainer" resultType="TrainerView">
+		select user.user_email, user.user_name, user.gender, user.user_tel, trainer_view.members, (user.squat+user.benchpress+user.deadlift) as big3
+		from user left join trainer_view on user.user_email=trainer_view.trainer
+		where user.user_type="T";
+	</select>
+	<!-- 회원정보 출력(관리자) -->
+	<select id="selectAllAdmin" resultType="UserView">
+		select user_email, user_name, gender, user_tel, (user.squat+user.benchpress+user.deadlift) as big3
+		from user where user_type="A";
+	</select>
+	<!-- 회원통계 -->
+	<select id="statistics" resultType="Statistics">
+		select	count(*) as total,
+				count(case when user_type="A" then 1 end) as admin,
+				count(case when user_type="T" then 1 end) as trainer,
+				count(case when user_type="U" then 1 end) as user,
+				count(prod_name) as product,
+				count(trainer) as pt
+		from user
+	</select>
+	<!-- 회원 유형 변경 -->
+	<update id="changeUserType" parameterType="map">
+		update user set user_type=#{user_type} where user_email=#{user_email}
+	</update>
+	<!-- 회원 전담트레이너 변경 -->
+	<update id="changeTrainer" parameterType="map">
+		update user set trainer=#{trainer} where user_email=#{user_email}
+	</update>
 </mapper>

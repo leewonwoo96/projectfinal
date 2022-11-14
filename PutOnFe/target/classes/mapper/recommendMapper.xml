@@ -4,7 +4,8 @@
 <mapper namespace="com.putupiron.recommend">
 	<!-- sql문 설정 -->
 	<sql id="select">
-		select * from recommend
+		select recommend.*, username.name as user_name
+		from recommend left join username on username.email=recommend.user_email
 	</sql>
 	<sql id="option">
 		<choose>
@@ -22,7 +23,7 @@
 	
 	<!-- 매핑 -->
 	<select id="read" parameterType="int" resultType="Recommend">
-		select * from recommend where rec_num=#{rec_num}
+		<include refid="select"/> where rec_num=#{rec_num}
 	</select>
 	<delete id="remove" parameterType="map">
 		delete from recommend where rec_num=#{rec_num} and user_email=#{user_email}

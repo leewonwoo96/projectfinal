@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.JoinData;
+import com.putupiron.pufe.dto.Statistics;
+import com.putupiron.pufe.dto.TrainerView;
 import com.putupiron.pufe.dto.User;
 import com.putupiron.pufe.dto.UserView;
 
@@ -19,4 +21,10 @@ public interface UserDao {
 	int		modify(String email, String name, String phone) throws Exception;
 	int		unregister(String email) throws Exception;
 	List<UserView> allUserView() throws Exception;
+	int		big3Edit(BigThree big3) throws Exception;
+	List<TrainerView> allTrainerView() throws Exception;
+	List<UserView> allAdminView() throws Exception;
+	Statistics statistics() throws Exception;
+	int		changeUserType(String user_email, String user_type) throws Exception;
+	int		changeTrainer(String user_email, String trainer) throws Exception;
 }

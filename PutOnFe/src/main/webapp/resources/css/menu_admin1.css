@@ -31,12 +31,7 @@
 	background-color:#eee;
 }
 .container>table{
-	width:100%;
 	border-collapse:collapse;
-}
-.container tr{
-	display:grid;
-	grid-template-columns:repeat(10,1fr);
 }
 .container tr:nth-of-type(odd){
 	background-color:#eee;
@@ -73,25 +68,36 @@
 	width:100%; height:80%;
 	margin:3px 0;
 }
-.editor_big3{
+.editor{
 	display:none;
 	position:absolute;
-	top:0; right:-122px;
 	border:2px solid #121212;
 	border-radius:3px;
 	padding:10px;
+	z-index:10;
+	background-color:white;
 }
-.editor_big3>input{
+.big3{
+	top:0; right:-122px;
+}
+.usertype, .trainer{
+	width:100%;
+	top:30px; right:0;
+}
+.editor>input, .editor>select{
 	display:block;
 	width:100px; height:25px;
 	border:1px solid #121212;
 	border-radius:3px;
 	text-align:center;
-	margin: 3px 0;
+	margin: 3px auto;
+	z-index:10;
 }
-.editor_big3>input[type=submit]{
+.editor>input[type=submit]{
 	margin-top:6px;
 	border:0;
 	background-color:#121212;
 	color:white;
+	cursor:pointer;
+	z-index:10;
 }

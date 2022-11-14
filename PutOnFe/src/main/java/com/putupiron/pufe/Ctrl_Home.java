@@ -17,6 +17,8 @@ import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.Machine;
 import com.putupiron.pufe.dto.Recommend;
+import com.putupiron.pufe.dto.Statistics;
+import com.putupiron.pufe.dto.TrainerView;
 import com.putupiron.pufe.dto.User;
 import com.putupiron.pufe.dto.UserView;
 import com.putupiron.pufe.vo.PageHandler;
@@ -50,7 +52,7 @@ public class Ctrl_Home {
 	
 //	메뉴버튼1
 	@GetMapping("/menu1")
-	public String menu1(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
+	public String menu1(String viewType, HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
 		User user = navBar(session,m,hsReq);
 		if(user==null) return "login";
 		switch(user.getUser_type()) {
@@ -59,8 +61,16 @@ public class Ctrl_Home {
 		case "T":
 			return "menu_trainer1";
 		case "A":
-			List<UserView> list=userDao.allUserView();
-			m.addAttribute("list",list);
+			Statistics stats = userDao.statistics();
+			List<UserView> userlist=userDao.allUserView();
+			List<TrainerView> trainerlist=userDao.allTrainerView();
+			List<UserView> adminlist=userDao.allAdminView();
+			if(viewType==null) viewType="user";
+			m.addAttribute("stats",stats);
+			m.addAttribute("userlist",userlist);
+			m.addAttribute("trainerlist",trainerlist);
+			m.addAttribute("adminlist",adminlist);
+			m.addAttribute("viewType",viewType);
 			return "menu_admin1";
 		default:
 			return "redirect:/login";

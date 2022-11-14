@@ -15,6 +15,7 @@ public class UserView {
 	private Date	end_date;
 	private	Integer	remain;
 	private	String	trainer;
+	private	String	trainer_name;
 	private	Integer	days;
 	private	int		big3;
 }
