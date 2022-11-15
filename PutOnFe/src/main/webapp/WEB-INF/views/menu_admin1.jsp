@@ -47,13 +47,15 @@
 	<c:when test='${viewType eq "user" }'>
 	<table>
 		<colgroup>
-			<col width="150px">
+			<col width="120px">
 			<col width="60px">
-			<col width="150px">
-			<col width="120px" span="3">
+			<col width="180px">
+			<col width="120px">
+			<col width="150px" span=2>
 			<col width="90px">
-			<col width="150px">
-			<col width="120px" span="2">
+			<col width="120px">
+			<col width="90px">
+			<col width="120px">
 		</colgroup>
 		<tr>
 			<th>이름</th>
@@ -64,7 +66,7 @@
 			<th>만료날짜</th>
 			<th>남은일수</th>
 			<th>담당PT</th>
-			<th>남은PT횟수</th>
+			<th>남은PT</th>
 			<th>BIG3</th>
 		</tr>
 		<c:forEach var="user" items="${userlist}">

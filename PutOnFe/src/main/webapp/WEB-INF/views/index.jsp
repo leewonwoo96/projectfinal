@@ -63,6 +63,10 @@
 				</div>
 				<div class="slide">
 				   	<img src="${path }/resources/img/anchovy.png">
+				   	<img src="${path }/resources/img/anchovy2.png">
+				   	<img src="${path }/resources/img/anchovy3.png">
+				   	<img src="${path }/resources/img/anchovy4.png">
+				   	<img src="${path }/resources/img/anchovy5.png">
 					<img src="${path }/resources/img/logo_nav.png">
 					<img src="${path }/resources/img/logo_main.png">
 				    <button id="prev">&lang;</button>

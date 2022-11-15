@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.JoinData;
 import com.putupiron.pufe.dto.Statistics;
+import com.putupiron.pufe.dto.TrainerInfo;
 import com.putupiron.pufe.dto.TrainerView;
 import com.putupiron.pufe.dto.User;
 import com.putupiron.pufe.dto.UserView;
@@ -82,6 +83,10 @@ public class UserDao_imp implements UserDao {
 		return session.selectList(namespace+"selectAllUserView");
 	}
 	@Override
+	public UserView homeUserView(String email) throws Exception {
+		return session.selectOne(namespace+"homeUserView",email);
+	}
+	@Override
 	public int big3Edit(BigThree big3) throws Exception {
 		return session.update(namespace+"big3Edit",big3);
 	}
@@ -110,5 +115,9 @@ public class UserDao_imp implements UserDao {
 		map.put("user_email", user_email);
 		map.put("trainer", trainer);
 		return session.update(namespace+"changeTrainer",map);
+	}
+	@Override
+	public List<TrainerInfo> TrainerUserView(String email) throws Exception {
+		return session.selectList(namespace+"selectTrainerUsers", email);
 	}
 }

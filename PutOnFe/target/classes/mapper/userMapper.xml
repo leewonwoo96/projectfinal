@@ -8,7 +8,7 @@
 	</select>
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="JoinData">
-		insert into user values(#{user_email},#{user_pw},#{user_name},#{gender},#{user_tel},"U",null,null,0,0,0)
+		insert into user values(#{user_email},#{user_pw},#{user_name},#{gender},#{user_tel},"U",null,null,null,0,0,0,0)
 	</insert>
 	<!-- 이메일찾기 -->
 	<select id="findEmail" parameterType="map" resultType="String">
@@ -43,7 +43,8 @@
 	<!-- 회원정보 출력(일반회원) -->
 	<select id="selectAllUserView" resultType="UserView">
 		select user_view.*, username.name as trainer_name
-		from user_view left join username on user_view.trainer=username.email;
+		from user_view left join username on user_view.trainer=username.email
+		order by user_name
 	</select>
 	<!-- 회원 3대중량 기록 변경 -->
 	<select id="big3Edit" parameterType="BigThree">
@@ -51,14 +52,16 @@
 	</select>
 	<!-- 회원정보 출력(트레이너) -->
 	<select id="selectAllTrainer" resultType="TrainerView">
-		select user.user_email, user.user_name, user.gender, user.user_tel, trainer_view.members, (user.squat+user.benchpress+user.deadlift) as big3
+		select user_email, user_name, gender, user_tel, members, (user.squat+user.benchpress+user.deadlift) as big3
 		from user left join trainer_view on user.user_email=trainer_view.trainer
-		where user.user_type="T";
+		where user.user_type="T"
+		order by user_name
 	</select>
 	<!-- 회원정보 출력(관리자) -->
 	<select id="selectAllAdmin" resultType="UserView">
 		select user_email, user_name, gender, user_tel, (user.squat+user.benchpress+user.deadlift) as big3
-		from user where user_type="A";
+		from user where user_type="A"
+		order by user_name
 	</select>
 	<!-- 회원통계 -->
 	<select id="statistics" resultType="Statistics">
@@ -78,4 +81,18 @@
 	<update id="changeTrainer" parameterType="map">
 		update user set trainer=#{trainer} where user_email=#{user_email}
 	</update>
+	<!-- 트레이너 등록회원목록 출력 -->
+	<select id="selectTrainerUsers" parameterType="String" resultType="TrainerInfo">
+		select	user_name, gender, user_tel, user_email, user.prod_name, buy_date,
+				(buy_date+interval period*30 day) as end_date, pt_times,
+				(days-PT_times) as pt_remain, (squat+benchpress+deadlift) as big3, squat, benchpress, deadlift
+		from user left join product on user.prod_name=product.prod_name
+		where trainer=#{email} order by user_name;
+	</select>
+	<!-- 홈 화면 회원정보 출력(일반회원) -->
+	<select id="homeUserView" parameterType="String" resultType="UserView">
+		select user_view.*, username.name as trainer_name
+		from user_view left join username on user_view.trainer=username.email
+		where user_email=#{email}
+	</select>
 </mapper>

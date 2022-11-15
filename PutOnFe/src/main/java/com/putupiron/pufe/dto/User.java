@@ -14,6 +14,8 @@ public class User {
 	private	String	user_type;
 	private	String	prod_name;
 	private Date	buy_date;
+	private	String	trainer;
+	private	Integer	pt_times;
 	private	int		squat;
 	private	int		benchpress;
 	private	int		deadlift;

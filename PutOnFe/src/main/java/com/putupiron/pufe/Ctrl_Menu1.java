@@ -30,6 +30,9 @@ public class Ctrl_Menu1 {
 	@PostMapping("/editBig3")
 	public String admin_editBig3(BigThree big3, String viewType, HttpSession session, Model m, RedirectAttributes ras) throws Exception{
 		navBar(session,m);
+		if(big3.getSquat()==null) big3.setSquat(0);
+		if(big3.getBenchpress()==null) big3.setBenchpress(0);
+		if(big3.getDeadlift()==null) big3.setDeadlift(0);
 		if(userDao.big3Edit(big3)!=1) ras.addFlashAttribute("msg","알 수 없는 이유로 변경에 실패했습니다.");
 		if(viewType==null) viewType="user";
 		return "redirect:/menu1?viewType="+viewType;

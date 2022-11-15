@@ -17,10 +17,7 @@ import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.Machine;
 import com.putupiron.pufe.dto.Recommend;
-import com.putupiron.pufe.dto.Statistics;
-import com.putupiron.pufe.dto.TrainerView;
 import com.putupiron.pufe.dto.User;
-import com.putupiron.pufe.dto.UserView;
 import com.putupiron.pufe.vo.PageHandler;
 import com.putupiron.pufe.vo.SearchCondition;
 
@@ -35,7 +32,13 @@ public class Ctrl_Home {
 	public String home(HttpSession session, Model m) throws Exception{
 		String user_email = (String)session.getAttribute("email");
 		User user = userDao.selectUser(user_email);
+		if(user==null) return "index";
 		Integer user_rank = userDao.userBig3Rank(user_email);
+		switch(user.getUser_type()) {
+		case "A": m.addAttribute("stats",userDao.statistics()); break;
+		case "T": m.addAttribute("today",new Date()); break;
+		case "U": m.addAttribute("userview",userDao.homeUserView(user_email)); break;
+		}
 		m.addAttribute("user", user);
 		m.addAttribute("rank",user_rank);
 		return "index";
@@ -59,17 +62,14 @@ public class Ctrl_Home {
 		case "U":
 			return "menu_user1";
 		case "T":
+			m.addAttribute("tulist",userDao.TrainerUserView(user.getUser_email()));
 			return "menu_trainer1";
 		case "A":
-			Statistics stats = userDao.statistics();
-			List<UserView> userlist=userDao.allUserView();
-			List<TrainerView> trainerlist=userDao.allTrainerView();
-			List<UserView> adminlist=userDao.allAdminView();
 			if(viewType==null) viewType="user";
-			m.addAttribute("stats",stats);
-			m.addAttribute("userlist",userlist);
-			m.addAttribute("trainerlist",trainerlist);
-			m.addAttribute("adminlist",adminlist);
+			m.addAttribute("stats",userDao.statistics());
+			m.addAttribute("userlist",userDao.allUserView());
+			m.addAttribute("trainerlist",userDao.allTrainerView());
+			m.addAttribute("adminlist",userDao.allAdminView());
 			m.addAttribute("viewType",viewType);
 			return "menu_admin1";
 		default:

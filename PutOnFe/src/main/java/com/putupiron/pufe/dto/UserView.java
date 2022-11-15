@@ -17,5 +17,6 @@ public class UserView {
 	private	String	trainer;
 	private	String	trainer_name;
 	private	Integer	days;
+	private Integer pt_times;
 	private	int		big3;
 }
