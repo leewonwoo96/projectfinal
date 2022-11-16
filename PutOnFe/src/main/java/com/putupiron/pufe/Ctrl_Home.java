@@ -99,6 +99,19 @@ public class Ctrl_Home {
 		m.addAttribute("machineList", machineList);
 		return "boarder_machines";
 	}
+// 기구 등록
+	@GetMapping("/test")
+	public String test(SearchCondition sc, HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
+		navBar(session,m,hsReq);
+		int totalCnt = machineDao.searchCnt(sc);
+		PageHandler ph = new PageHandler(totalCnt,sc);
+		List<Machine> machinelist= machineDao.search(sc);
+		
+		m.addAttribute("machinelist",machinelist);
+		m.addAttribute("ph",ph);
+		
+		return "board_machines";
+	}
 //	Big3 랭킹
 	@GetMapping("/bigThree")
 	public String big3Rank(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{

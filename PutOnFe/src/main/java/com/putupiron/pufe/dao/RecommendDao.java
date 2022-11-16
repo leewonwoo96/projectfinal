@@ -5,6 +5,8 @@ import java.util.List;
 import com.putupiron.pufe.dto.Recommend;
 import com.putupiron.pufe.vo.SearchCondition;
 
+import lombok.Data;
+
 public interface RecommendDao {
 
 	Recommend read(Integer rec_num) throws Exception;

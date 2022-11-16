@@ -14,16 +14,18 @@
 <body>
 <%@ include file="navMenu.jsp" %>
 <h1 class="title">헬스클럽 시설정보</h1>
+
 <div class="container">
 	<c:forEach items="${machineList}" var="machine">
 		<ul class="btn_toggle">
 			<li class="product_img">
-				<img src="${path}/resources/img/anchovy.png">
+				<img src="${path}/resources/img/${machine.mch_img }">
+				
 				<button class="detail">세부사항</button>
-				<div class="caption">${machine.mch_detail}</div>
+				<textarea  rows="7" cols="35" class="caption" readonly>${machine.mch_detail}</textarea>
 			</li>
 			<li class="product_tit"><br>${machine.mch_name}</li>
-			<li class="product_con">${machine.mch_info}<br></li>
+			<li><textarea rows="7" cols="35" class="product_con" readonly>${machine.mch_info}</textarea></li>
 		</ul>
 	</c:forEach>
 </div>

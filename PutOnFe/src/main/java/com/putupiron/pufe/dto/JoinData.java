@@ -1,7 +1,7 @@
 package com.putupiron.pufe.dto;
 
 import lombok.Data;
-
+ 
 @Data
 public class JoinData{
 	private	String	user_email;
