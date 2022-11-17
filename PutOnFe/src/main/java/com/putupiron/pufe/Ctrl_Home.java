@@ -1,5 +1,6 @@
 package com.putupiron.pufe;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.putupiron.pufe.dao.MachineDao;
+import com.putupiron.pufe.dao.PTDao;
 import com.putupiron.pufe.dao.RecommendDao;
 import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.Machine;
+import com.putupiron.pufe.dto.PTReserv;
 import com.putupiron.pufe.dto.Recommend;
 import com.putupiron.pufe.dto.User;
 import com.putupiron.pufe.vo.PageHandler;
@@ -26,6 +29,7 @@ public class Ctrl_Home {
 	@Autowired UserDao userDao;
 	@Autowired MachineDao machineDao;
 	@Autowired RecommendDao recDao;
+	@Autowired PTDao ptDao;
 
 //	홈 화면
 	@GetMapping("/")
@@ -81,8 +85,28 @@ public class Ctrl_Home {
 	public String menu2(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
 		User user = navBar(session,m,hsReq);
 		if(user==null) return "login";
-		switch(user.getUser_type()) {
+		String user_type= user.getUser_type();
+		switch(user_type) {
 		case "U":
+			List<PTReserv> ptrList=ptDao.reservList(user.getTrainer(),user_type);
+			List<List<Object>> bookedList = new ArrayList<>();
+			List<Object> list=null;
+			for(PTReserv ptr:ptrList) {
+				list = new ArrayList<>();
+				list.add(ptr.getPt_date().toString());
+				list.add(ptr.getPt_time());
+				bookedList.add(list);
+			}
+			List<PTReserv> userBookList = ptDao.userBookList(user.getUser_email());
+			List<List<Object>> userList = new ArrayList<>();
+			for(PTReserv userPTR:userBookList) {
+				list = new ArrayList<>();
+				list.add(userPTR.getPt_date().toString());
+				list.add(userPTR.getPt_time());
+				userList.add(list);
+			}
+			m.addAttribute("bookedList",bookedList);
+			m.addAttribute("userList",userList);
 			return "menu_user2";
 		case "T":
 			return "menu_trainer2";

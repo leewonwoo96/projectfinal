@@ -73,7 +73,7 @@
 		<tr>
 			<td>${user.user_name}
 				<button class="bt_edit"><img src="${path}/resources/img/icon_edit.png"></button>
-				<form class="editor usertype" action="<c:url value='menu1/editType'/>" method="post">
+				<form class="editor usertype" action="<c:url value='manage/editType'/>" method="post">
 					<input type="hidden" name="user_email" value="${user.user_email}">
 					<select name="userType">
 						<option value="A">관리자</option>
@@ -91,7 +91,7 @@
 			<td>${user.trainer_name }
 				<c:if test="${user.trainer!=null }">
 				<button class="bt_edit"><img src="${path}/resources/img/icon_edit.png"></button>
-				<form class="editor trainer" action="<c:url value='menu1/editTrainer'/>" method="post">
+				<form class="editor trainer" action="<c:url value='manage/editTrainer'/>" method="post">
 					<input type="hidden" name="user_email" value="${user.user_email}">
 					<select name="changeTrainer">
 					<c:forEach var="selectTrainer" items="${trainerlist }">
@@ -105,7 +105,7 @@
 			<td>${user.days }</td>
 			<td>${user.big3 }
 				<button class="bt_edit"><img src="${path}/resources/img/icon_edit.png"></button>
-				<form class="editor big3" action="<c:url value='menu1/editBig3'/>" method="post">
+				<form class="editor big3" action="<c:url value='manage/editBig3'/>" method="post">
 					<input type="hidden" name="user_email" value="${user.user_email}">
 					<input type="text" name="squat" placeholder="스쿼트">
 					<input type="text" name="benchpress" placeholder="벤치프레스">
@@ -135,7 +135,7 @@
 			<td>${trainer.user_email }</td>
 			<td>${trainer.user_name }
 				<button class="bt_edit"><img src="${path}/resources/img/icon_edit.png"></button>
-				<form class="editor usertype" action="<c:url value='menu1/editType'/>" method="post">
+				<form class="editor usertype" action="<c:url value='manage/editType'/>" method="post">
 					<input type="hidden" name="user_email" value="${trainer.user_email}">
 					<input type="hidden" name="viewType" value="trainer">
 					<select name="userType">
@@ -150,7 +150,7 @@
 			<td>${trainer.members}</td>
 			<td>${trainer.big3 }
 				<button class="bt_edit"><img src="${path}/resources/img/icon_edit.png"></button>
-				<form class="editor big3" action="<c:url value='menu1/editBig3'/>" method="post">
+				<form class="editor big3" action="<c:url value='manage/editBig3'/>" method="post">
 					<input type="hidden" name="user_email" value="${trainer.user_email}">
 					<input type="hidden" name="viewType" value="trainer">
 					<input type="text" name="squat" placeholder="스쿼트">
@@ -180,7 +180,7 @@
 			<td>${admin.user_email }</td>
 			<td>${admin.user_name }
 				<button class="bt_edit"><img src="${path}/resources/img/icon_edit.png"></button>
-				<form class="editor usertype" action="<c:url value='menu1/editType'/>" method="post">
+				<form class="editor usertype" action="<c:url value='manage/editType'/>" method="post">
 					<input type="hidden" name="user_email" value="${admin.user_email}">
 					<input type="hidden" name="viewType" value="admin">
 					<select name="userType">
@@ -194,7 +194,7 @@
 			<td class="tel">${admin.user_tel}</td>
 			<td>${admin.big3 }
 				<button class="bt_edit"><img src="${path}/resources/img/icon_edit.png"></button>
-				<form class="editor big3" action="<c:url value='menu1/editBig3'/>" method="post">
+				<form class="editor big3" action="<c:url value='manage/editBig3'/>" method="post">
 					<input type="hidden" name="user_email" value="${admin.user_email}">
 					<input type="hidden" name="viewType" value="admin">
 					<input type="text" name="squat" placeholder="스쿼트">

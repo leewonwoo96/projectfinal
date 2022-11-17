@@ -14,8 +14,8 @@ import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.User;
 
 @Controller
-@RequestMapping("/menu1")
-public class Ctrl_Menu1 {
+@RequestMapping("/manage")
+public class Ctrl_Management {
 	@Autowired UserDao userDao;
 	
 //	네비게이션 바에 세션의 유저 정보 전송

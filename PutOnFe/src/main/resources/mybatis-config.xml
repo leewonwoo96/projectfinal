@@ -11,6 +11,7 @@
 		<typeAlias alias="TrainerView" type="com.putupiron.pufe.dto.TrainerView"/>
 		<typeAlias alias="Statistics" type="com.putupiron.pufe.dto.Statistics"/>
 		<typeAlias alias="TrainerInfo" type="com.putupiron.pufe.dto.TrainerInfo"/>
+		<typeAlias alias="PTReserv" type="com.putupiron.pufe.dto.PTReserv"/>
 		
 		<typeAlias alias="SearchCondition" type="com.putupiron.pufe.vo.SearchCondition"/>
 	</typeAliases>
