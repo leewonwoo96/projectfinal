@@ -15,6 +15,8 @@ public interface RecommendDao {
 
 	int remove(Integer rec_num, String user_email) throws Exception;
 
+	List<Recommend> indexrec() throws Exception;
+
 	List<Recommend> search(SearchCondition sc) throws Exception;
 
 	int searchCnt(SearchCondition sc) throws Exception;

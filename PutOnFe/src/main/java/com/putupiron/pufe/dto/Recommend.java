@@ -11,7 +11,7 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor 
 public class Recommend {
 	private Integer	rec_num;
 	private String	rec_title;

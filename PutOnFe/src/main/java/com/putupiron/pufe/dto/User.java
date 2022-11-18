@@ -3,7 +3,7 @@ package com.putupiron.pufe.dto;
 import java.util.Date;
 
 import lombok.Data;
-
+ 
 @Data
 public class User {
 	private	String	user_email;

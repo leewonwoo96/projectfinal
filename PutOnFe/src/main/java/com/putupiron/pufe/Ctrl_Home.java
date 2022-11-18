@@ -33,9 +33,12 @@ public class Ctrl_Home {
 
 //	홈 화면
 	@GetMapping("/")
-	public String home(HttpSession session, Model m) throws Exception{
+	public String home(SearchCondition sc,HttpSession session, Model m) throws Exception{
 		String user_email = (String)session.getAttribute("email");
 		User user = userDao.selectUser(user_email);
+		List<Machine> machineList=machineDao.selectAllMachines();
+		List<Recommend> list= recDao.indexrec();
+		
 		if(user==null) return "index";
 		Integer user_rank = userDao.userBig3Rank(user_email);
 		switch(user.getUser_type()) {
@@ -45,6 +48,10 @@ public class Ctrl_Home {
 		}
 		m.addAttribute("user", user);
 		m.addAttribute("rank",user_rank);
+		m.addAttribute("machineList", machineList);
+		
+		m.addAttribute("list",list);
+		
 		return "index";
 	}
 	
@@ -145,6 +152,18 @@ public class Ctrl_Home {
 		List<Machine> machineList=machineDao.selectAllMachines();
 		m.addAttribute("machineList", machineList);
 		return "boarder_machines";
+	}
+// 기구 등록
+	@GetMapping("/test")
+	public String test(SearchCondition sc, HttpSession session, Model m, HttpServletRequest hsReq) throws Exception{
+		navBar(session,m,hsReq);
+		int totalCnt = machineDao.searchCnt(sc);
+		PageHandler ph = new PageHandler(totalCnt,sc);
+		List<Machine> machinelist= machineDao.search(sc);
+		m.addAttribute("machinelist",machinelist);
+		m.addAttribute("ph",ph);
+		
+		return "board_machines";
 	}
 //	Big3 랭킹
 	@GetMapping("/bigThree")
