@@ -57,6 +57,9 @@
 	</div>
 </div>
 <script>
+//모델로 전달된 객체 저장
+var bookedList = ${bookeds};
+var reqedList = ${reqeds};
 //날짜형식 데이터 포맷
 function dateFm(date){
 	year= date.getFullYear();
@@ -99,7 +102,8 @@ function buildCal(){
 	for(i=1;i<=lastDate;i++){
 		plusDate= new Date(nowY,nowM,i).getDay();
 		if(plusDate==0) $("#calendar>tbody:last").append("</tr><tr>");
-		$("#calendar>tbody>tr:last").append("<td class='date'><p>"+i+"</p><p><span class='books'></span> | <span class='requests'></span></p></td>");
+		nowDate=nowY+"-"+(nowM+1)+"-"+i;
+		$("#calendar>tbody>tr:last").append(tdHtml(i,dailyCnt(bookedList,nowDate),dailyCnt(reqedList,nowDate)));
 	}
 	if($("#calendar>tbody>tr>td").length%7!=0)
 		for(i=1;i<=$("#calendar>tbody>tr>td").length%7;i++)
@@ -124,30 +128,67 @@ function buildCal(){
 		requestList();
 	});
 }
+//예약된 시간표 출력
 function reservationList(){
 	nowY = now.getFullYear();
 	nowM = now.getMonth();
 	nowD = now.getDate();
+	nowDate = nowY+"-"+(nowM+1)+"-"+nowD;
 	ul = $("#reservationList");
 	
 	ul.find("li").remove();
-	$("#dateTitle").text(nowY+"-"+(nowM+1)+"-"+nowD);
-	for(i=9;i<21;i++) ul.append('<li class="time" id="'+dateFm(now).split("_")[0]+'_'+i+'"><span>'+i+':00</span><span>님</span></li>');
-	
+	$("#dateTitle").text(nowDate);
+	for(i=9;i<21;i++) ul.append(liHtml(nowDate,i,"-","",""));
+	ul.find(".time").each(function(index,item){
+		//예약된 일정이 있을 시
+		$(bookedList).each(function(i,t){
+			if(nowDate==t['pt_date'] && index==t['pt_time']-9)
+				$(item).replaceWith(liHtml(nowDate,t['pt_time'],t['user_name']+" 님",t['user_tel'],t['pt_no']));
+		});
+	});
 	//시간 선택 시 이벤트
-	$(".time").click(function(){
+	ul.find(".time").click(function(){
 		$(".time").removeClass("selected");
 		$(this).addClass("selected");
 		$("#bookedPT").val($(this).attr("id"));
 	});
 }
+//해당 날짜의 요청된 예약 출력
 function requestList(){
 	nowY = now.getFullYear();
 	nowM = now.getMonth();
 	nowD = now.getDate();
+	nowDate = nowY+"-"+(nowM+1)+"-"+nowD;
 	ul = $("#requestList");
 	
 	ul.find("li").remove();
+	$(reqedList).each(function(index,reqed){
+		if(nowDate==reqed['pt_date'])
+			ul.append(liHtml(reqed['pt_date'],reqed['pt_time'],reqed['user_name'],reqed['user_tel'],reqed['pt_no']));
+	});
+	//시간 선택 시 이벤트
+	ul.find(".time").click(function(){
+		$(".time").removeClass("selected");
+		$(this).addClass("selected");
+		$("#reqedPT").val($(this).attr("id"));
+	});
+}
+//달력의 td 생성함수
+function tdHtml(index,book,req){
+	return '<td class="date"><p>'+index+'</p><p><span class="books">'+book+'</span> <span class="requests">'+req+'</span></p></td>';
+}
+//시간표 li 생성함수
+function liHtml(date,index,text,tel,pt_no){
+	if(tel=="") return '<li class="time" id="'+date+'_'+index+'"><span>'+index+':00</span><span>'+text+'</span></li>';
+	else return '<li class="time" id="'+date+'_'+index+'"><span>'+index+':00</span><span><font>'+pt_no+'</font>'+text+'<font>'+tel+'</font></span></li>';
+}
+//해당 날짜의 예약 수 출력함수
+function dailyCnt(arr,date){
+	let cnt=0;
+	$(arr).each(function(i,t){
+		if(t['pt_date']==date) cnt++;
+	});
+	return cnt;
 }
 </script>
 </body>

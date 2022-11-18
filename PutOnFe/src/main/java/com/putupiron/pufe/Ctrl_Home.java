@@ -86,9 +86,10 @@ public class Ctrl_Home {
 		User user = navBar(session,m,hsReq);
 		if(user==null) return "login";
 		String user_type= user.getUser_type();
+		List<PTReserv> ptrList=null;
 		switch(user_type) {
 		case "U":
-			List<PTReserv> ptrList=ptDao.reservList(user.getTrainer(),user_type);
+			ptrList=ptDao.reservList(user.getTrainer(),user_type);
 			List<List<Object>> bookedList = new ArrayList<>();
 			List<Object> list=null;
 			for(PTReserv ptr:ptrList) {
@@ -109,6 +110,15 @@ public class Ctrl_Home {
 			m.addAttribute("userList",userList);
 			return "menu_user2";
 		case "T":
+			ptrList=ptDao.reservList(user.getUser_email(), user_type);
+			List<PTReserv> bookeds = new ArrayList<>();
+			List<PTReserv> reqeds = new ArrayList<>();
+			for(PTReserv ptr:ptrList) {
+				if(ptr.getRequest().equals("booked")) bookeds.add(ptr);
+				if(ptr.getRequest().equals("requested")) reqeds.add(ptr);
+			}
+			m.addAttribute("bookeds",bookeds);
+			m.addAttribute("reqeds",reqeds);
 			return "menu_trainer2";
 		case "A":
 			return "menu_admin2";

@@ -4,7 +4,7 @@
 <mapper namespace="com.putupiron.pt">
 	<!-- 트레이너 예약일정 출력(유저의 경우 예약된 일정만 보이게) -->
 	<select id="reservList" parameterType="map" resultType="PTReserv">
-		select * from pt_reserview where trainer_email=#{email} <if test='user_type="U"'>and request="booked"</if> order by pt_no
+		select * from pt_reserview where trainer_email=#{email} <if test='user_type=="U"'>and request="booked"</if> order by pt_date, pt_time, pt_no
 	</select>
 	<!-- 로그인 한 유저의 예약 정보 -->
 	<select id="userBookList" parameterType="String" resultType="PTReserv">
