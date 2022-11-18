@@ -25,7 +25,7 @@ li {list-style:none;}
 	flex-direction:column;
 	justify-content:space-evenly;
 	align-items:center;
-	overflow: auto;
+	
 	z-index:1;
 	background-color: #eee;
 }
@@ -79,4 +79,14 @@ li {list-style:none;}
 }
 textarea:focus {
     outline: none;
+}
+.product_con ::-webkit-scrollbar{
+   width:8px;
+}
+.product_con ::-webkit-scrollbar-thumb{
+   background:#121212;
+   border-radius:4px;
+}
+.product_con::-webkit-scrollbar-track{
+   background:white;
 }

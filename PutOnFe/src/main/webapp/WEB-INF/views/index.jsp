@@ -50,10 +50,9 @@
 				<a href="<c:url value='/recommend'/>">더보기</a>
 			</div>
 				<ul id="rec_area">
-					<li>추천 운동 정보 1</li>
-					<li>추천 운동 정보 2</li>
-					<li>추천 운동 정보 3</li>
-					<li>추천 운동 정보 4</li>
+				<c:forEach items="${list }" var="rec">
+					<li><a href="<c:url value='/recommend/read?rec_num=${rec.rec_num }'/>" >${rec.rec_title}</a></li>
+					</c:forEach>
 				</ul>
 			</div>
 			<div id="machine_info" class="article">
@@ -62,9 +61,9 @@
 					<a href="<c:url value='/machines'/>">더보기</a>
 				</div>
 				<div class="slide">
-				   	<img src="${path }/resources/img/anchovy.png">
-					<img src="${path }/resources/img/logo_nav.png">
-					<img src="${path }/resources/img/logo_main.png">
+				<c:forEach items="${machineList}" var="machine">
+				<img src="${path}/resources/img/${machine.mch_img }">
+				   	</c:forEach>
 				    <button id="prev">&lang;</button>
 				    <button id="next">&rang;</button>
 					<script>
