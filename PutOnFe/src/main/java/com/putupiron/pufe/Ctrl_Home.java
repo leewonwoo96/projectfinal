@@ -1,5 +1,6 @@
 package com.putupiron.pufe;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.putupiron.pufe.dao.MachineDao;
+import com.putupiron.pufe.dao.PTDao;
 import com.putupiron.pufe.dao.RecommendDao;
 import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.BigThree;
 import com.putupiron.pufe.dto.Machine;
+import com.putupiron.pufe.dto.PTReserv;
 import com.putupiron.pufe.dto.Recommend;
 import com.putupiron.pufe.dto.User;
 import com.putupiron.pufe.vo.PageHandler;
@@ -26,6 +29,7 @@ public class Ctrl_Home {
 	@Autowired UserDao userDao;
 	@Autowired MachineDao machineDao;
 	@Autowired RecommendDao recDao;
+	@Autowired PTDao ptDao;
 
 //	홈 화면
 	@GetMapping("/")
@@ -35,7 +39,13 @@ public class Ctrl_Home {
 		List<Machine> machineList=machineDao.selectAllMachines();
 		List<Recommend> list= recDao.indexrec();
 		
+		if(user==null) return "index";
 		Integer user_rank = userDao.userBig3Rank(user_email);
+		switch(user.getUser_type()) {
+		case "A": m.addAttribute("stats",userDao.statistics()); break;
+		case "T": m.addAttribute("today",new Date()); break;
+		case "U": m.addAttribute("userview",userDao.homeUserView(user_email)); break;
+		}
 		m.addAttribute("user", user);
 		m.addAttribute("rank",user_rank);
 		m.addAttribute("machineList", machineList);
@@ -56,15 +66,22 @@ public class Ctrl_Home {
 	
 //	메뉴버튼1
 	@GetMapping("/menu1")
-	public String menu1(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
+	public String menu1(String viewType, HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
 		User user = navBar(session,m,hsReq);
 		if(user==null) return "login";
 		switch(user.getUser_type()) {
 		case "U":
 			return "menu_user1";
 		case "T":
+			m.addAttribute("tulist",userDao.TrainerUserView(user.getUser_email()));
 			return "menu_trainer1";
 		case "A":
+			if(viewType==null) viewType="user";
+			m.addAttribute("stats",userDao.statistics());
+			m.addAttribute("userlist",userDao.allUserView());
+			m.addAttribute("trainerlist",userDao.allTrainerView());
+			m.addAttribute("adminlist",userDao.allAdminView());
+			m.addAttribute("viewType",viewType);
 			return "menu_admin1";
 		default:
 			return "redirect:/login";
@@ -75,10 +92,40 @@ public class Ctrl_Home {
 	public String menu2(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
 		User user = navBar(session,m,hsReq);
 		if(user==null) return "login";
-		switch(user.getUser_type()) {
+		String user_type= user.getUser_type();
+		List<PTReserv> ptrList=null;
+		switch(user_type) {
 		case "U":
+			ptrList=ptDao.reservList(user.getTrainer(),user_type);
+			List<List<Object>> bookedList = new ArrayList<>();
+			List<Object> list=null;
+			for(PTReserv ptr:ptrList) {
+				list = new ArrayList<>();
+				list.add(ptr.getPt_date().toString());
+				list.add(ptr.getPt_time());
+				bookedList.add(list);
+			}
+			List<PTReserv> userBookList = ptDao.userBookList(user.getUser_email());
+			List<List<Object>> userList = new ArrayList<>();
+			for(PTReserv userPTR:userBookList) {
+				list = new ArrayList<>();
+				list.add(userPTR.getPt_date().toString());
+				list.add(userPTR.getPt_time());
+				userList.add(list);
+			}
+			m.addAttribute("bookedList",bookedList);
+			m.addAttribute("userList",userList);
 			return "menu_user2";
 		case "T":
+			ptrList=ptDao.reservList(user.getUser_email(), user_type);
+			List<PTReserv> bookeds = new ArrayList<>();
+			List<PTReserv> reqeds = new ArrayList<>();
+			for(PTReserv ptr:ptrList) {
+				if(ptr.getRequest().equals("booked")) bookeds.add(ptr);
+				if(ptr.getRequest().equals("requested")) reqeds.add(ptr);
+			}
+			m.addAttribute("bookeds",bookeds);
+			m.addAttribute("reqeds",reqeds);
 			return "menu_trainer2";
 		case "A":
 			return "menu_admin2";

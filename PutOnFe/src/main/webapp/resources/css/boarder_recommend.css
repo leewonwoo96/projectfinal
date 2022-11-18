@@ -36,7 +36,7 @@
 	background-color: rgb(70,140,160) !important;
 	color:white;
 }
-a:hover {
+.container a:hover {
   text-decoration: underline;
 }
 .pagination {
