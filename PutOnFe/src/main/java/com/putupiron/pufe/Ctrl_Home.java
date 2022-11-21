@@ -1,7 +1,6 @@
 package com.putupiron.pufe;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +42,7 @@ public class Ctrl_Home {
 		Integer user_rank = userDao.userBig3Rank(user_email);
 		switch(user.getUser_type()) {
 		case "A": m.addAttribute("stats",userDao.statistics()); break;
-		case "T": m.addAttribute("today",new Date()); break;
+		case "T": m.addAttribute("today",new java.util.Date()); break;
 		case "U": m.addAttribute("userview",userDao.homeUserView(user_email)); break;
 		}
 		m.addAttribute("user", user);
@@ -97,22 +96,13 @@ public class Ctrl_Home {
 		switch(user_type) {
 		case "U":
 			ptrList=ptDao.reservList(user.getTrainer(),user_type);
-			List<List<Object>> bookedList = new ArrayList<>();
-			List<Object> list=null;
+			List<String> bookedList = new ArrayList<>();
 			for(PTReserv ptr:ptrList) {
-				list = new ArrayList<>();
-				list.add(ptr.getPt_date().toString());
-				list.add(ptr.getPt_time());
-				bookedList.add(list);
+				String dateTime = "{pt_date:'"+ptr.getPt_date()+"', pt_time:"+ptr.getPt_time()+"}";
+				bookedList.add(dateTime);
 			}
-			List<PTReserv> userBookList = ptDao.userBookList(user.getUser_email());
-			List<List<Object>> userList = new ArrayList<>();
-			for(PTReserv userPTR:userBookList) {
-				list = new ArrayList<>();
-				list.add(userPTR.getPt_date().toString());
-				list.add(userPTR.getPt_time());
-				userList.add(list);
-			}
+			List<PTReserv> userList = ptDao.userBookList(user.getUser_email());
+
 			m.addAttribute("bookedList",bookedList);
 			m.addAttribute("userList",userList);
 			return "menu_user2";
@@ -140,7 +130,7 @@ public class Ctrl_Home {
 		int totalCnt = recDao.searchCnt(sc);
 		PageHandler ph = new PageHandler(totalCnt,sc);
 		List<Recommend> list= recDao.search(sc);
-		m.addAttribute("now",new Date());
+		m.addAttribute("now",new java.util.Date());
 		m.addAttribute("list",list);
 		m.addAttribute("ph",ph);
 		return "boarder_recommend";
