@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.putupiron.pufe.dao.GoodsDao;
 import com.putupiron.pufe.dao.MachineDao;
 import com.putupiron.pufe.dao.PTDao;
 import com.putupiron.pufe.dao.RecommendDao;
@@ -29,6 +30,7 @@ public class Ctrl_Home {
 	@Autowired MachineDao machineDao;
 	@Autowired RecommendDao recDao;
 	@Autowired PTDao ptDao;
+	@Autowired GoodsDao goodsDao;
 
 //	홈 화면
 	@GetMapping("/")
@@ -70,6 +72,7 @@ public class Ctrl_Home {
 		if(user==null) return "login";
 		switch(user.getUser_type()) {
 		case "U":
+			m.addAttribute("goodsList", goodsDao.allGoods("noPT"));
 			return "menu_user1";
 		case "T":
 			m.addAttribute("tulist",userDao.TrainerUserView(user.getUser_email()));

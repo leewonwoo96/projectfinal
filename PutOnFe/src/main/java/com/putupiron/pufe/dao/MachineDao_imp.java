@@ -9,13 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.putupiron.pufe.dto.Machine;
-import com.putupiron.pufe.dto.Recommend;
 import com.putupiron.pufe.vo.SearchCondition;
-
-
-
- 
-
 
 @Repository
 public class MachineDao_imp implements MachineDao  {

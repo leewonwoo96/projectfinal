@@ -85,8 +85,8 @@
 	<select id="selectTrainerUsers" parameterType="String" resultType="TrainerInfo">
 		select	user_name, gender, user_tel, user_email, user.prod_name, buy_date,
 				(buy_date+interval period*30 day) as end_date, pt_times,
-				(days-PT_times) as pt_remain, (squat+benchpress+deadlift) as big3, squat, benchpress, deadlift
-		from user left join product on user.prod_name=product.prod_name
+				(times-PT_times) as pt_remain, (squat+benchpress+deadlift) as big3, squat, benchpress, deadlift
+		from user left join goods on user.prod_name=goods.goods_name
 		where trainer=#{email} order by user_name;
 	</select>
 	<!-- 홈 화면 회원정보 출력(일반회원) -->

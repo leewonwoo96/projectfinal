@@ -1,6 +1,5 @@
 package com.putupiron.pufe.dto;
 
-import java.util.Date;
 import java.util.Objects;
 
 import lombok.Data;

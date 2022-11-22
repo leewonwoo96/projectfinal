@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,7 +56,7 @@ public class Ctrl_PTReservation {
 	
 //	유저-PT예약신청
 	@PostMapping("/reservation")
-	public List<List<?>> reserve(@RequestBody PTReserv newPtr, HttpSession session){
+	public ResponseEntity<List<List<?>>> reserve(@RequestBody PTReserv newPtr, HttpSession session){
 		try{
 			User user = navBar(session);
 			newPtr.setTrainer_email(user.getTrainer());
@@ -70,31 +72,29 @@ public class Ctrl_PTReservation {
 			List<List<?>> classifiedList = new ArrayList<>();
 			classifiedList.add(bookedList);
 			classifiedList.add(userList);
-			return classifiedList;
+			return new ResponseEntity<>(classifiedList,HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 //	트레이너-일정 비활성화
 	@PostMapping("/disable")
-	public List<List<PTReserv>> disable(@RequestBody PTReserv ptr, HttpSession session) {
+	public ResponseEntity<List<List<PTReserv>>> disable(@RequestBody PTReserv ptr, HttpSession session) {
 		try {
-			System.out.println(ptr.getPt_date());
-			System.out.println(ptr.getPt_date());
 			User user = navBar(session);
 			String trainer_email = user.getUser_email();
 			ptr.setTrainer_email(trainer_email);
 			if(ptDao.disable(ptr)!=1)throw new Exception();
-			return classify(ptDao.reservList(trainer_email, user.getUser_type()));
+			return new ResponseEntity<>(classify(ptDao.reservList(trainer_email, user.getUser_type())),HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 //	트레이너-예약 확정
 	@PatchMapping("/confirm")
-	public List<List<PTReserv>> confirm(Integer pt_no, HttpSession session){
+	public ResponseEntity<List<List<PTReserv>>> confirm(Integer pt_no, HttpSession session){
 		try {
 			User user = navBar(session);
 			String trainer_email = user.getUser_email();
@@ -103,15 +103,15 @@ public class Ctrl_PTReservation {
 			Integer pt_time = Integer.parseInt((String) ptDao.ptDateTime(pt_no).get("pt_time"));
 			if(!alreadyBooked(ptrList,pt_date,pt_time)) throw new Exception("already booked");
 			if(ptDao.confirm(pt_no)!=1) throw new Exception("confirm failed");
-			return classify(ptDao.reservList(trainer_email, user.getUser_type()));
+			return new ResponseEntity<>(classify(ptDao.reservList(trainer_email, user.getUser_type())),HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 //	트레이너-예약시간 변경
 	@PatchMapping("/modify")
-	public List<List<PTReserv>> modify(@RequestBody PTReserv modData, HttpSession session) {
+	public ResponseEntity<List<List<PTReserv>>> modify(@RequestBody PTReserv modData, HttpSession session) {
 		try {
 			User user = navBar(session);
 			String trainer_email = user.getUser_email();
@@ -120,22 +120,22 @@ public class Ctrl_PTReservation {
 			Integer pt_time = modData.getPt_time();
 			if(!alreadyBooked(ptrList,pt_date,pt_time)) throw new Exception("already booked");
 			if(ptDao.update(modData)!=1) throw new Exception("update failed");
-			return classify(ptDao.reservList(trainer_email, user.getUser_type()));
+			return new ResponseEntity<>(classify(ptDao.reservList(trainer_email, user.getUser_type())),HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 //	트레이너-예약 취소
 	@DeleteMapping("/cancel")
-	public List<List<PTReserv>> cancel(Integer pt_no, HttpSession session){
+	public ResponseEntity<List<List<PTReserv>>> cancel(Integer pt_no, HttpSession session){
 		try {
 			User user = navBar(session);
 			if(ptDao.cancel(pt_no)!=1) throw new Exception("cancel failed");
-			return classify(ptDao.reservList(user.getUser_email(), user.getUser_type()));
+			return new ResponseEntity<>(classify(ptDao.reservList(user.getUser_email(), user.getUser_type())),HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

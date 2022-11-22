@@ -118,7 +118,7 @@
 </div>
 <script>
 let msg= "${msg}";
-if(msg=="unregisterSuccessed") alert("회원탈퇴가 정상적으로 처리되었습니다.");
+if(msg!="") alert(msg);
 </script>
 </body>
 </html>
