@@ -27,7 +27,7 @@ import com.putupiron.pufe.vo.SearchCondition;
 
 
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/facility")
 public class Ctrl_Machine {
 	@Autowired UserDao userDao;
 	@Autowired MachineDao machineDao;
@@ -50,20 +50,24 @@ public class Ctrl_Machine {
 			m.addAttribute("mode","read");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "redirect:/test"+sc.getQueryString();
+			return "redirect:/facility"+sc.getQueryString();
 		}
-		return "read_test";
+		return "board_machines_read";
 	}
 	
 	@GetMapping("/write")
 	public String write( HttpSession session, Model m, Integer mch_num,HttpServletRequest hsReq) throws Exception {
 		User user= navBar(session,m,hsReq);
-		if(user==null) return "redirect:/login";
+		if (user == null)
+			return "redirect:/login";
+		String user_type = user.getUser_type();
+		if (!user_type.equals("A"))
+			return "redirect:/login";
 		if(mch_num!=null) {
 		Machine machine=machineDao.read(mch_num);
 		m.addAttribute("machine",machine);}
 		m.addAttribute("mode","write");
-		return "write_test";
+		return "board_machines_regist";
 	}
 	@PostMapping("/write")
 	public String save( Machine machine,String FileName, MultipartFile uploadFile, Model m, HttpSession session, RedirectAttributes ras) {
@@ -89,12 +93,12 @@ public class Ctrl_Machine {
 			int rowCnt=machineDao.write(machine);
 			if(rowCnt!=1) throw new Exception("Write Error");
 			ras.addFlashAttribute("msg","write_success");
-			return "redirect:/test";
+			return "redirect:/facility";
 		} catch(Exception e) {
 			e.printStackTrace();
 			m.addAttribute("machine", machine);
 			m.addAttribute("msg", "write_error");
-			return "write_test";
+			return "board_machines_regist";
 		}
 	}
 	@PostMapping("/modify")
@@ -140,28 +144,33 @@ public class Ctrl_Machine {
 			int rowCnt = machineDao.modify(machine);
 			if(rowCnt!=1) throw new Exception("modify Error");
 			ras.addFlashAttribute("msg","modify_success");
-			return "redirect:/test"+sc.getQueryString();
+			return "redirect:/facility"+sc.getQueryString();
 		} catch(Exception e) {
 			e.printStackTrace();
 			m.addAttribute("machine",machine);
 			m.addAttribute("msg","modify_error");
 			m.addAttribute("m", "renew");
-			return "write_test";
+			return "board_machines_regist";
 		}
 	}
 	@PostMapping("/remove")
-	public String remove(Integer mch_num, SearchCondition sc, Model m, HttpSession session, RedirectAttributes ras) {
+	public String remove(Integer mch_num, SearchCondition sc, Model m, HttpSession session, RedirectAttributes ras,HttpServletRequest hsReq) {
 		try {
-		
+			User user= navBar(session,m,hsReq);
+			if (user == null)
+				return "redirect:/login";
+			String user_type = user.getUser_type();
+			if (!user_type.equals("A"))
+				return "redirect:/login";
 			int rowCnt=machineDao.remove(mch_num);
 			if(rowCnt==1) {
 				ras.addFlashAttribute("msg","del");
-				return "redirect:/test"+sc.getQueryString();
+				return "redirect:/facility"+sc.getQueryString();
 			} else throw new Exception("board remove error");
 		} catch(Exception e) {
 			e.printStackTrace();
 			ras.addFlashAttribute("msg","error");
 		}
-		return "redirect:/test"+sc.getQueryString();
+		return "redirect:/facility"+sc.getQueryString();
 	}
 }

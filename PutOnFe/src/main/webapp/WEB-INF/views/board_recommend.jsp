@@ -13,7 +13,7 @@
 </head>
 <body>
 	<%@ include file="navMenu.jsp"%>
-
+<div class="container">
 	<form action="" id="form">
 		<h4>${mode=="write"? "글쓰기": ""}</h4>
 		<div class="a"></div>
@@ -30,8 +30,21 @@
 			<input type="${mode=='read'?'button':'hidden' }" class="btn " id="modifyBt" value="수정"> 
 			<input type="${mode=='read'?'button':'hidden' }" class="btn " id="removeBt" value="삭제"> 
 			<input type="${mode=='read'?'button':'hidden' }" class="btn " id="listBt" value="목록">
+			
+			
 		</div>
+		<div class="a"></div>
+		
+		<%@ include file="rec_comment.jsp"%>
 	</form>
+	
+	
+	
+	
+	</div>
+	
+	
+	
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
 	document.getElementById("listBt").addEventListener('click',e=>{

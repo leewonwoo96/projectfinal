@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>철좀들어-추천정보</title>
-<link rel="stylesheet" href="${path }/resources/css/test.css">
+<link rel="stylesheet" href="${path }/resources/css/board_machines_read.css">
 </head>
 <body>
 	<%@ include file="navMenu.jsp"%>
@@ -79,13 +79,13 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
 	document.getElementById("listBt").addEventListener('click',e=>{
-		window.location="<c:url value='/test'/>${searchCondition.queryString}";
+		window.location="<c:url value='/facility'/>${searchCondition.queryString}";
 	});
 	
 	document.getElementById("removeBt").addEventListener('click',e=>{
 		if(!confirm("게시물을 삭제하겠습니까?")) return;
 		let form=document.getElementById('form');
-		form.action="<c:url value='/test/remove'/>${searchCondition.queryString}";
+		form.action="<c:url value='/facility/remove'/>${searchCondition.queryString}";
 		form.method="post";
 		form.submit();
 	});
@@ -93,7 +93,7 @@
 
 	document.getElementById("modifyBt").addEventListener('click',e=>{
 	let mch_num=$('#mch_num').val();
-		window.location="<c:url value='/test/write'/>?mch_num="+mch_num+"&mode=modi";
+		window.location="<c:url value='/facility/write'/>?mch_num="+mch_num+"&mode=modi";
 	});
 	
 	

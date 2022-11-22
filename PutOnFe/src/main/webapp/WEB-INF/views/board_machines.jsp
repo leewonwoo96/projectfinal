@@ -32,7 +32,7 @@
 		<c:forEach var="board" items="${machinelist }">
 			<tr>
 				<td>${board.mch_num }</td>
-				<td ><a href="<c:url value='/test/read${ph.sc.queryString }&mch_num=${board.mch_num }'/>" style="color: black">${board.mch_name }</a></td>
+				<td ><a href="<c:url value='/facility/read${ph.sc.queryString }&mch_num=${board.mch_num }'/>" style="color: black">${board.mch_name }</a></td>
 				<td > ${board.mch_date }</td>
 				
 		        
@@ -42,7 +42,7 @@
 		</c:forEach>
 	</table>
 	<div id="tools">
-		<button type="button" class="btn" id="writeBtn" onclick="location.href='<c:url value="/test/write?mode=write"/>'" style="float:right;">기구 등록</button>
+		<button type="button" class="btn" id="writeBtn" onclick="location.href='<c:url value="/facility/write?mode=write"/>'" style="float:right;">기구 등록</button>
 		<div class="search-container">
 			<form action="<c:url value="/test"/>" class="search-form" method="get">
 				<select class="form-control" name="option">
@@ -61,15 +61,15 @@
 			<ul class="pagination">
 				<li><c:if test="${ph.showPrev }">
 						<a
-							href="<c:url value='/test${ph.sc.getQueryString(ph.beginPage-1) } ' />">&laquo;</a>
+							href="<c:url value='/facility${ph.sc.getQueryString(ph.beginPage-1) } ' />">&laquo;</a>
 					</c:if></li>
 				<li><c:forEach var="i" begin="${ph.beginPage }"
 						end="${ph.endPage }">
-						<a href="<c:url value='/test${ph.sc.getQueryString(i) }'/>">${i }</a>
+						<a href="<c:url value='/facility${ph.sc.getQueryString(i) }'/>">${i }</a>
 					</c:forEach></li>
 				<li><c:if test="${ph.showNext }">
 						<a
-							href="<c:url value='/test${ph.sc.getQueryString(ph.endPage+1) }'/>">&raquo;</a>
+							href="<c:url value='/facility${ph.sc.getQueryString(ph.endPage+1) }'/>">&raquo;</a>
 					</c:if></li>
 			</ul>
 		</div>

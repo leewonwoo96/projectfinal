@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>철좀들어-추천정보</title>
-<link rel="stylesheet" href="${path }/resources/css/test2.css">
+<link rel="stylesheet" href="${path }/resources/css/board_machines_regist.css">
 </head>
 <body>
 	<%@ include file="navMenu.jsp"%>
@@ -75,7 +75,7 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
 	document.getElementById("listBt").addEventListener('click',e=>{
-		window.location="<c:url value='/test'/>${searchCondition.queryString}";
+		window.location="<c:url value='/facility'/>${searchCondition.queryString}";
 	});
 	
 
@@ -92,7 +92,7 @@
 		
 
 		let form = document.getElementById('form');
-		form.action="<c:url value='/test/write'/>";
+		form.action="<c:url value='/facility/write'/>";
 		form.method="post";
 		form.submit();
 	});
@@ -122,7 +122,7 @@
 			document.getElementById('modifyBt').value="등록";
 			return;
 		}
-		form.action="<c:url value='/test/modify'/>${searchCondition.queryString}";
+		form.action="<c:url value='/facility/modify'/>${searchCondition.queryString}";
 		form.method="post";
 		form.submit();
 	});

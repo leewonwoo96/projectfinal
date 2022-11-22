@@ -20,8 +20,8 @@
 		<ul class="btn_toggle">
 			<li class="product_img">
 				<img src="${path}/resources/img/${machine.mch_img }">
-				
-				<button class="detail">세부사항</button>
+				<br><br>
+				<button class="detail" >세부사항</button>
 				<textarea  rows="7" cols="35" class="caption" readonly>${machine.mch_detail}</textarea>
 			</li>
 			<li class="product_tit"><br>${machine.mch_name}</li>
@@ -31,8 +31,9 @@
 </div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
-$('.detail').click(function(){
-	$(this).parent().find('.caption').toggle();
+$('.detail').hover(function(){
+	$(this).parent().find('.caption').toggle()
+
 });
 </script>
 </body>

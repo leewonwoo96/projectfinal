@@ -50,4 +50,9 @@
 	<select id="searchCnt" parameterType="SearchCondition" resultType="int">
 		select count(*) from recommend where true <include refid="option"/>
 	</select>
+	<update id="updateCommentCnt" parameterType="map">
+		update recommend
+		set comment_cnt = comment_cnt+ #{comment_cnt}
+		where rec_num = #{rec_num}
+	</update>
 </mapper>

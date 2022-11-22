@@ -32,7 +32,8 @@
 		<c:forEach var="board" items="${list }">
 			<tr>
 				<td>${board.rec_num }</td>
-				<td ><a href="<c:url value='/recommend/read${ph.sc.queryString }&rec_num=${board.rec_num }'/>" style="color: black">${board.rec_title }</a></td>
+				<td ><a href="<c:url value='/recommend/read${ph.sc.queryString }&rec_num=${board.rec_num }'/>" style="color: black">${board.rec_title }</a>
+				<span style="color:red">[${board.comment_cnt }]</span></td>
 				<td>${board.user_name }</td>
 				
 		         <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd"/>
@@ -47,6 +48,7 @@
 		          </c:choose>
 				
 				<td>${board.views }</td>
+				
 			</tr>
 		</c:forEach>
 	</table>

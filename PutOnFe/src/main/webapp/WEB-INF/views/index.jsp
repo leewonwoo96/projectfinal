@@ -47,18 +47,18 @@
            	<div id="recommend" class="article">
 			<div class="top_bar">
                    <p>추천 운동 정보</p>
-				<a href="<c:url value='/recommend'/>">더보기</a>
+				<a href="<c:url value='/recommend'/>" id="rec_detail">더보기</a>
 			</div>
 				<ul id="rec_area">
 				<c:forEach items="${list }" var="rec">
-					<li><a href="<c:url value='/recommend/read?rec_num=${rec.rec_num }'/>" >${rec.rec_title}</a></li>
+					<li><a href="<c:url value='/recommend/read?rec_num=${rec.rec_num }'/>" id="rec_detail">${rec.rec_title}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
 			<div id="machine_info" class="article">
 				<div class="top_bar">
 					<p>클럽 기구 정보</p>
-					<a href="<c:url value='/machines'/>">더보기</a>
+					<a href="<c:url value='/machines'/>" id="rec_detail">더보기</a>
 				</div>
 				<div class="slide">
 				<c:forEach items="${machineList}" var="machine">
@@ -92,7 +92,7 @@
 		<div id="big_three" class="article">
 			<div class="top_bar small">
                 <p>3대 중량</p>
-				<a href="<c:url value='bigThree'/>">더보기</a>
+				<a href="<c:url value='bigThree'/>" id="rec_detail">더보기</a>
 			</div>
             <p class="bigthree_p">BIG THREE : <span id="bigthree_total">${not empty user? user.squat+user.benchpress+user.deadlift:'000' }</span></p>
             <p class="bigthree_p">RANK : <span id="bigthree_rank">${not empty user? rank:'000'}</span></p>
@@ -103,7 +103,7 @@
         <div id="matching" class="article">
             <div class="top_bar small">
                 <p>헬스 메이트</p>
-                <a href="<c:url value='/matching'/>">더보기</a>
+                <a href="<c:url value='/matching'/>" id="rec_detail">더보기</a>
 			</div>
 			<div id="match_info">로그인 후 이용하실 수 있습니다.</div>
 		</div>

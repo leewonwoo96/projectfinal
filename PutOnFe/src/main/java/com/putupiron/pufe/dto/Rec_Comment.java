@@ -10,5 +10,6 @@ public class Rec_Comment {
 	private String com_text;
 	private String user_email;
 	private Date reg_date;
+	private	String	user_name;
 	
 }

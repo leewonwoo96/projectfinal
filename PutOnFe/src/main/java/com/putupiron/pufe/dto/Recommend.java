@@ -21,6 +21,7 @@ public class Recommend {
 	private	int		views;
 	private	int		rec_comments;
 	private	Date	rec_date;
+	private int comment_cnt;
 	
 	public Recommend(String rec_title, String user_email, String rec_content) {
 		super();

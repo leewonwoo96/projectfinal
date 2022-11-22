@@ -36,11 +36,16 @@ li {list-style:none;}
 	height: 200px;
 }
 .product_img>img {
-	width: 200px;
+		width: 200px;
 	height: 200px;
 	border-radius:15px;
 	position:relative;
-	z-index:-1;
+	z-index:-1; 
+	transition: all 0.2s linear;
+}
+
+.product_img:hover img {
+  transform: scale(110%);
 }
 .detail {
 	background-color: #121212;
@@ -50,7 +55,8 @@ li {list-style:none;}
 	width: 70px; height:20px;
 	cursor: pointer;
 	position:absolute;
-	bottom:-30px; right:3px;
+	bottom:-35px; right:3px;
+	transition: all 0.2s linear;
 	
 }
 .caption {
@@ -67,6 +73,7 @@ li {list-style:none;}
 	display: none;
 	resize:none;
 	border-radius:15px;
+	transition: all 0.2s linear;
 }
 .product_tit{
 	font-size: 120%;
@@ -89,4 +96,7 @@ textarea:focus {
 }
 .product_con::-webkit-scrollbar-track{
    background:white;
+}
+.detail:hover{
+	
 }

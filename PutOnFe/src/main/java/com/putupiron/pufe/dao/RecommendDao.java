@@ -21,4 +21,6 @@ public interface RecommendDao {
 
 	int searchCnt(SearchCondition sc) throws Exception;
 
+	int updateCommentCnt(Integer rec_num, Integer comment_cnt)throws Exception;
+
 }
