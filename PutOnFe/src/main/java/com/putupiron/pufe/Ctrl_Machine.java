@@ -3,6 +3,7 @@ package com.putupiron.pufe;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import com.putupiron.pufe.dao.MachineDao;
 import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.Machine;
 import com.putupiron.pufe.dto.User;
+import com.putupiron.pufe.vo.PageHandler;
 import com.putupiron.pufe.vo.SearchCondition;
 
 
@@ -33,18 +35,36 @@ public class Ctrl_Machine {
 	@Autowired MachineDao machineDao;
 	
 	
-	public User navBar(HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
+	public User navBar(HttpSession session, Model m) throws Exception {
 		String user_email = (String)session.getAttribute("email");
 		User user = userDao.selectUser(user_email);
 		m.addAttribute("user",user);
-		m.addAttribute("lastPage","?toURL="+hsReq.getServletPath());
+		
 		return user;
+	}
+	@GetMapping()
+	public String test(SearchCondition sc, HttpSession session, Model m) throws Exception {
+		navBar(session, m);
+		User user = navBar(session, m);
+		System.out.println(user + "");
+		if (user == null)
+			return "redirect:/login";
+		String user_type = user.getUser_type();
+		if (!user_type.equals("A"))
+			return "redirect:/login";
+		int totalCnt = machineDao.searchCnt(sc);
+		PageHandler ph = new PageHandler(totalCnt, sc);
+		List<Machine> machinelist = machineDao.search(sc);
+		m.addAttribute("machinelist", machinelist);
+		m.addAttribute("ph", ph);
+
+		return "board_machines";
 	}
 	
 	@GetMapping("/read")
-	public String read(Integer mch_num, SearchCondition sc, HttpSession session, Model m, HttpServletRequest hsReq) {
+	public String read(Integer mch_num, SearchCondition sc, HttpSession session, Model m) {
 		try {
-			navBar(session,m,hsReq);
+			navBar(session,m);
 			Machine machine=machineDao.read(mch_num);
 			m.addAttribute("machine",machine);
 			m.addAttribute("mode","read");
@@ -56,8 +76,8 @@ public class Ctrl_Machine {
 	}
 	
 	@GetMapping("/write")
-	public String write( HttpSession session, Model m, Integer mch_num,HttpServletRequest hsReq) throws Exception {
-		User user= navBar(session,m,hsReq);
+	public String write( HttpSession session, Model m, Integer mch_num) throws Exception {
+		User user= navBar(session,m);
 		if (user == null)
 			return "redirect:/login";
 		String user_type = user.getUser_type();
@@ -154,14 +174,22 @@ public class Ctrl_Machine {
 		}
 	}
 	@PostMapping("/remove")
-	public String remove(Integer mch_num, SearchCondition sc, Model m, HttpSession session, RedirectAttributes ras,HttpServletRequest hsReq) {
+	public String remove(Integer mch_num, SearchCondition sc, Model m, HttpSession session, RedirectAttributes ras,String fileName, MultipartFile uploadFile) {
 		try {
-			User user= navBar(session,m,hsReq);
+			User user= navBar(session,m);
 			if (user == null)
 				return "redirect:/login";
 			String user_type = user.getUser_type();
 			if (!user_type.equals("A"))
 				return "redirect:/login";
+			
+			String uploadFileName =machineDao.mch_img(mch_num);
+			String filePath = "C:\\Users\\gkdlk\\git\\pufe\\pufe\\PutOnFe\\src\\main\\webapp\\resources\\img\\"+uploadFileName+"";
+		    File deleteFile = new File(filePath);
+		    deleteFile.delete(); 
+			
+				
+		
 			int rowCnt=machineDao.remove(mch_num);
 			if(rowCnt==1) {
 				ras.addFlashAttribute("msg","del");

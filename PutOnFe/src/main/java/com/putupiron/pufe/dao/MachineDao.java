@@ -21,4 +21,6 @@ public interface MachineDao {
 
 	int searchCnt(SearchCondition sc) throws Exception;
 
+	String mch_img(Integer mch_num) throws Exception;
+
 }

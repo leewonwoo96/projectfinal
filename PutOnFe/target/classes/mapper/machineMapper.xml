@@ -24,6 +24,10 @@
 		select * from machines
 	</select>
 	
+	<select id="mch_img" resultType="String">
+		select mch_img from machines where mch_num=#{mch_num}
+	</select>
+	
 	<delete id="remove" parameterType="map">
 		delete from machines where mch_num=#{mch_num}
 	</delete>

@@ -172,24 +172,7 @@ public class Ctrl_Home {
 	}
 
 // 기구 등록
-	@GetMapping("/facility")
-	public String test(SearchCondition sc, HttpSession session, Model m, HttpServletRequest hsReq) throws Exception {
-		navBar(session, m, hsReq);
-		User user = navBar(session, m, hsReq);
-		System.out.println(user + "");
-		if (user == null)
-			return "redirect:/login";
-		String user_type = user.getUser_type();
-		if (!user_type.equals("A"))
-			return "redirect:/login";
-		int totalCnt = machineDao.searchCnt(sc);
-		PageHandler ph = new PageHandler(totalCnt, sc);
-		List<Machine> machinelist = machineDao.search(sc);
-		m.addAttribute("machinelist", machinelist);
-		m.addAttribute("ph", ph);
-
-		return "board_machines";
-	}
+	
 
 //	Big3 랭킹
 	@GetMapping("/bigThree")

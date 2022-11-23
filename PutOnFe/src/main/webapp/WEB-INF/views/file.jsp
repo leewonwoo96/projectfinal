@@ -28,8 +28,6 @@
 
 	<input type="file" name="uploadFile" id="uploadFile" multiple />
 	<label for="fileName" id="fileName">${machine.mch_img }</label>
-	<input class="btn btn-primary" id="deleteBtn" type="button" value="삭제" />
-	<br>
 	<input type="hidden" name="fileName" value="${machine.mch_img }">
 	<input type='hidden' name="del" id="del" value=0>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -58,22 +56,16 @@
 			return true;
 		}
 		
-		$('#writeBtn').on("click", function(e){
-			alert("이벤트 발생");
-			// form전송 객체, 주로 이미지와 같은 멀티미디어 파일을 페이지 전환없이 
-			// 폼데이터를 비동기로 제출하고 싶을 때  사용
+		$('#writeBt').on("click", function(e){
+		
 			let formData = new FormData(); 
-			console.log(formData);
+			
 			
 			let inputFile = $("input[name='uploadFile']"); 
-			console.log(inputFile)
+			
 			
 			let files = inputFile[0].files;// 실제 file 데이터
-			console.log(files);
-			if(files.length==0){
-				alert("파일이 없습니다.")
-				return;
-			}
+			
 			// 파일 데이터를 폼에 집어넣기
 			for(let i = 0; i < files.length; i++){
 				console.log(i)
@@ -86,81 +78,14 @@
 				
 				//console.log로는 단순한 객체가 아니라 전송을 위한 특수객체이므로 확인이 어려움
 				//다음과 같이 for문으로 확인해야 함
-				console.log("--------------파일 적재 후 formData 태그 -------------");
 				for (let key of formData.keys()) {
 					  console.log(key, ":",formData.get(key));
 				}
 			}
 			
 		});
-		// uploadBtn onclick	
-		$('#modifyBtn').click(function(){
-			alert('수정버튼 클릭')
-			console.log($('#del').val())
 
-			
-			let formData = new FormData(); 
-			console.log(formData);
-			
-			let inputFile = $("input[name='uploadFile']"); 
-			console.log(inputFile)
-			
-			let files = inputFile[0].files;// 실제 file 데이터
-			console.log(files);
-			let fileName = $("#fileName").text()
-			if(files.length==0&&fileName.length==0){
-				$('#del').val(3);
-				alert("파일이 없습니다.")
-				modi();
-				return;
-			}
-			else if(files.length==0&&fileName.lengh!=0){
-				$('#del').val(1);
-				modi();
-				return;
-			}
-			// 파일 데이터를 폼에 집어넣기
-			for(let i = 0; i < files.length; i++){
-				console.log(i)
-				if(!checkExtension(files[i].name, files[i].size)){
-					return false;// 조건에 맞지않은 파일 포함시 onclick 이벤트 함수자체를 종료시켜버림
-				}
-				console.log("파일 길이")
-				console.log(files[i].name.length)
-				formData.append("uploadFile", files[i]);
-				
-			}	
-			modi();
-		});
-		function modi(){
-			 // 2. 수정 상태이면 수정된 내용을 서버로 전송
-			var form = document.getElementById('form');
-			console.log(form)
-			form.action="<c:url value='/facility/modify'/>${searchCondition.queryString}"; 
-			form.method="post";
-			form.submit();
-		}
-		$('#deleteBtn').click(function(){
-			// form전송 객체, 주로 이미지와 같은 멀티미디어 파일을 페이지 전환없이 
-			// 폼데이터를 비동기로 제출하고 싶을 때  사용
-			let formData = new FormData(); 
-			console.log(formData);
-			
-			let inputFile = $("input[name='uploadFile']"); 
-			console.log(inputFile)
-			
-			let fileName = $("#fileName").text()
-			let files = inputFile[0].files;// 실제 file 데이터
-			console.log(files);
-			if(files.length==0 && fileName==''){
-				alert("파일이 없습니다.")
-				return;
-			}
-			alert("파일이 삭제되었습니다.");
-			$('#uploadFile').val('');
-			$('#fileName').text(''); 
 	
-		});
 					// 파일 데이터를 폼에 집어넣기
 					for(let i = 0; i < files.length; i++){
 						console.log(i)
@@ -181,25 +106,11 @@
 						}
 					}
 					
-					$.ajax({
-						url: '/facility/delete/', 
-						// 폼 데이터로 인식하기 위해
-						processData : false,
-						contentType: false,
-						data : formData,
-						type : 'POST',
-						success : function(result){
-							console.log(result);
-							alert("파일이 삭제되었습니다.");
-							$('#uploadFile').val('');
-							$('#fileName').text('');
-							$('#del').val(3);
-						}
-					}); // ajax
+				
 					
 				});
 				
-			});	// document ready END    
+			  
 		</script>
 </body>
 </html>

@@ -47,5 +47,10 @@ public class MachineDao_imp implements MachineDao  {
 	@Override
 	public int searchCnt(SearchCondition sc) throws Exception{
 		return session.selectOne(namespace+"searchCnt",sc);
+	} 
+	
+	@Override
+	public String mch_img(Integer mch_num) throws Exception{
+		return session.selectOne(namespace+"mch_img",mch_num);
 	}
 }
