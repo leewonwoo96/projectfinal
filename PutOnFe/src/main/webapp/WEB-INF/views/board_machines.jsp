@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="${path }/resources/css/boarder_recommend.css">
 </head>
 <body>
-<%@ include file="navMenu.jsp" %>
+<%@ include file="navMenu.jsp" %> 
 
 <div class="container">
 
