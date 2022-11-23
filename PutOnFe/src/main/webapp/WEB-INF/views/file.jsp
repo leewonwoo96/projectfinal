@@ -140,21 +140,27 @@
 			form.method="post";
 			form.submit();
 		}
-				$('#deleteBtn').click(function(){
-					// form전송 객체, 주로 이미지와 같은 멀티미디어 파일을 페이지 전환없이 
-					// 폼데이터를 비동기로 제출하고 싶을 때  사용
-					let formData = new FormData(); 
-					console.log(formData);
-					
-					let inputFile = $("input[name='uploadFile']"); 
-					console.log(inputFile)
-					let fileName = $("#fileName").text()
-					let files = inputFile[0].files;// 실제 file 데이터
-					console.log(files);
-					if(files.length==0 && fileName==''){
-						alert("파일이 없습니다.")
-						return;
-					}
+		$('#deleteBtn').click(function(){
+			// form전송 객체, 주로 이미지와 같은 멀티미디어 파일을 페이지 전환없이 
+			// 폼데이터를 비동기로 제출하고 싶을 때  사용
+			let formData = new FormData(); 
+			console.log(formData);
+			
+			let inputFile = $("input[name='uploadFile']"); 
+			console.log(inputFile)
+			
+			let fileName = $("#fileName").text()
+			let files = inputFile[0].files;// 실제 file 데이터
+			console.log(files);
+			if(files.length==0 && fileName==''){
+				alert("파일이 없습니다.")
+				return;
+			}
+			alert("파일이 삭제되었습니다.");
+			$('#uploadFile').val('');
+			$('#fileName').text(''); 
+	
+		});
 					// 파일 데이터를 폼에 집어넣기
 					for(let i = 0; i < files.length; i++){
 						console.log(i)
