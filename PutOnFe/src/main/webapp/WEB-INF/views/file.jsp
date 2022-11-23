@@ -27,10 +27,10 @@
 <body>
 
 	<input type="file" name="uploadFile" id="uploadFile" multiple />
-	<label for="fileName" id="fileName">${boardDto.img_src }</label>
+	<label for="fileName" id="fileName">${machine.mch_img }</label>
 	<input class="btn btn-primary" id="deleteBtn" type="button" value="삭제" />
 	<br>
-	<input type="hidden" name="fileName" value="${boardDto.img_src }">
+	<input type="hidden" name="fileName" value="${machine.mch_img }">
 	<input type='hidden' name="del" id="del" value=0>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
@@ -136,7 +136,7 @@
 			 // 2. 수정 상태이면 수정된 내용을 서버로 전송
 			var form = document.getElementById('form');
 			console.log(form)
-			form.action="<c:url value='/board/modify'/>${searchCondition.queryString}"; 
+			form.action="<c:url value='/facility/modify'/>${searchCondition.queryString}"; 
 			form.method="post";
 			form.submit();
 		}
@@ -176,7 +176,7 @@
 					}
 					
 					$.ajax({
-						url: '/bd/delete/', 
+						url: '/facility/delete/', 
 						// 폼 데이터로 인식하기 위해
 						processData : false,
 						contentType: false,

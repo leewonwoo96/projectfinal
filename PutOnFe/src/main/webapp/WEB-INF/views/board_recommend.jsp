@@ -36,6 +36,8 @@
 		<div class="a"></div>
 		
 		<%@ include file="rec_comment.jsp"%>
+		
+		
 	</form>
 	
 	

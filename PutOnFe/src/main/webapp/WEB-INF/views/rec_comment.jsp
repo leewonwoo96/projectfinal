@@ -21,7 +21,7 @@
 			
 		</div>
 		
-		<div id="commentList"></div>
+		<div id="commentList" style="margin-bottom: 100px;"></div>
 	
 	
 	<script>
