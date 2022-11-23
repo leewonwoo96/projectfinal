@@ -30,10 +30,18 @@ public class PTReserv {
 		this.pt_time = pt_time;
 		this.trainer_email = trainer_email;
 	}
+	public String getPt_date() {
+		return pt_date.toString();
+	}
+	public String getUser_tel() {
+		if(user_tel!=null) return user_tel.substring(7);
+		return user_tel;
+	}
 	@Override
 	public String toString() {
+		if(user_tel!=null) user_tel=user_tel.substring(7);
 		return "{pt_no:" + pt_no + ", pt_date:'" + pt_date + "', pt_time:" + pt_time + ", trainer_email:'"
 				+ trainer_email + "', trainer_name:'" + trainer_name + "', user_email:'" + user_email + "', user_name:'"
-				+ user_name + "', user_tel:'" + user_tel.substring(7) + "', request:'" + request + "'}";
+				+ user_name + "', user_tel:'" + user_tel + "', request:'" + request + "'}";
 	}
 }

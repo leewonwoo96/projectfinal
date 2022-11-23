@@ -43,65 +43,85 @@
 	<tbody></tbody>
 	<tfoot>
 		<tr><td colspan=4>
-			<form action="PT/reservation" method="post" onsubmit="return rightValue();">
-				<input type="hidden" name="pt_datetime" id="reservDate" value="-">
-				<input type="submit" value="예약하기">
-			</form>
+			<input type="hidden" id="reservDate" value="-">
+			<input type="button" id="reserveBt" value="예약하기">
 		</td></tr>
 	</tfoot>
 </table>
 </div>
 
 <script>
-let msg="${msg}";
-if(msg!="") alert(msg);
 // 모델로 받은 이미 예약된 시간 목록 저장
-var bookedList= new Array();
-<c:forEach var="booked" items="${bookedList}">
-	bookedList.push("${booked[0]}"+"_"+"${booked[1]}");
-</c:forEach>
+var bookedList= ${bookedList};
 // 유저의 예약정보 리스트
-var userList= new Array();
-<c:forEach var="userBook" items="${userList}">
-	userList.push("${userBook[0]}"+"_"+"${userBook[1]}");
-</c:forEach>
-//날짜형식 데이터 포맷
-function dateFm(date){
-	year= date.getFullYear();
-	month= date.getMonth()+1;
-	day= date.getDate();
-	hour= date.getHours();
-	return [year,month,day].join("-")+"_"+hour;
-}
-//전송버튼 누를 시 유효성 검사
-function rightValue(){
-	if($("#reservDate").val()=="-"){
-		alert("날짜와 시간을 선택해주세요.");
-		return false;
-	} return true;
-}
-
+var userList= ${userList};
 // 달력, 시간표 출력
 var now= new Date();
 var today= new Date();
+
+//함수 실행부
+refresh(bookedList,userList);
+
+//버튼
+// 예약 버튼
+$("#reserveBt").click(function(){
+	dateTime=$("#reservDate").val();
+	if(dateTime=="-"){
+		alert("예약할 날짜를 선택해주세요.");
+		return;
+	}
+	pt_date = dateTime.split("_")[0];
+	pt_time = dateTime.split("_")[1];
+	$.ajax({
+		type: 'POST',
+		url:'/pufe/pt/reservation',
+		headers: {"content-type":"application/json"},
+		data: JSON.stringify({pt_date, pt_time}),
+		beforeSend: function(xhr,opts){if(!confirm("신청하시겠습니까?")) xhr.abort();},
+		success: function(result){
+			alert("PT예약신청이 완료됐습니다.");
+			bookedList = result[0];
+			userList = result[1];
+			refresh(bookedList,userList);
+		},
+		error: function(){alert("error");}
+	});
+});
+
 // 저번달, 다음달 버튼
 $("#prevM").click(function(){
 	$("#calendar>tbody td").remove();
 	$("#calendar>tbody tr").remove();
 	now = new Date(now.getFullYear(),now.getMonth()-1,now.getDate());
-	buildCal();
+	buildCal(bookedList, userList);
 });
 $("#nextM").click(function(){
 	$("#calendar>tbody td").remove();
 	$("#calendar>tbody tr").remove();
 	now= new Date(now.getFullYear(),now.getMonth()+1,now.getDate());
-	buildCal();
+	buildCal(bookedList, userList);
 });
-buildCal();
-buildTimeTable();
 
+//함수 선언부
+//날짜형식 데이터 포맷
+function dateFm(date){
+	year= date.getFullYear();
+	month= date.getMonth()+1;
+	day= date.getDate();
+	
+	if(month<10) month="0"+month;
+	if(day<10) day="0"+day;
+	return [year,month,day].join("-");
+}
+// 달력 새로고침
+function refresh(bookedList,userList){
+	$("#calendar>tbody td").remove();
+	$("#calendar>tbody tr").remove();
+	buildCal(bookedList, userList);
+	buildTimeTable(bookedList,userList);
+}
 // 달력 만들기
-function buildCal(){
+function buildCal(bookedList, userList){
 	nowY= now.getFullYear();
 	nowM= now.getMonth();
 	
@@ -125,10 +145,10 @@ function buildCal(){
 	
 	// 각 날짜에 맞는 속성 부여하기(선택불가, 선택된 날짜)
 	$(".date").each(function(index){
-		if(nowY==today.getFullYear() && nowM==today.getMonth() && $(".date").eq(index).text()==today.getDate()){
+		if(nowY==today.getFullYear() && nowM==today.getMonth() && $(".date").eq(index).text()==today.getDate())
 			$(".date").eq(index).attr('id','today');
+		if($(".date").eq(index).text()==now.getDate())
 			$(".date").eq(index).addClass('selected');
-		}
 		if(nowY<today.getFullYear())
 			$(".date").eq(index).addClass('disabled');
 		if(nowY==today.getFullYear() && nowM<today.getMonth())
@@ -136,8 +156,10 @@ function buildCal(){
 		if(nowY==today.getFullYear() && nowM==today.getMonth() && $(".date").eq(index).text()<today.getDate())
 			$(".date").eq(index).addClass('disabled');
 		$(userList).each(function(i,t){
-			if(nowY==t.split("-")[0] && nowM==t.split("-")[1]-1 && $(".date").eq(index).text()==t.split("-")[2].split("_")[0])
-				$(".date").eq(index).addClass('booked');
+			if(nowY==t['pt_date'].split("-")[0] && nowM==t['pt_date'].split("-")[1]-1 && $(".date").eq(index).text()==t['pt_date'].split("-")[2]){
+				if(t['request']=="requested") $(".date").eq(index).addClass('requested');
+				else $(".date").eq(index).addClass('booked');
+			}
 		});
 	});
 	//날짜 선택 시 이벤트
@@ -146,12 +168,12 @@ function buildCal(){
 		$("#reservDate").val("-");
 		$(this).addClass('selected');
 		now = new Date(nowY,nowM,$(this).text());
-		buildTimeTable();
+		buildTimeTable(bookedList,userList);
 	});
 }
 
 // 시간표 만들기
-function buildTimeTable(){
+function buildTimeTable(bookedList,userList){
 	nowY = now.getFullYear();
 	nowM = now.getMonth();
 	nowD = now.getDate();
@@ -163,31 +185,34 @@ function buildTimeTable(){
 	$("#timeTable>tbody").append("<tr>");
 	for(i=9;i<21;i++){
 		if(i==13 || i==17) $("#timeTable tbody:last").append("</tr><tr>");
-		$("#timeTable>tbody>tr:last").append('<td class="time" id="'+dateFm(now).split("_")[0]+'_'+i+'">'+i+':00</td>');
+		$("#timeTable>tbody>tr:last").append('<td class="time" date="'+dateFm(now)+'" id="'+i+'">'+i+':00</td>');
 	}
 	$("#timeTable>tbody:last").append("</tr>");
 
 	//이미 예약된 시간, 현재시각 기준 1시간후까지 비활성화
 	rightNow = dateFm(new Date());
+	rightNowH = new Date().getHours();
 	$(".time").each(function(index,item){
 		$(bookedList).each(function(i,t) {
-			if($(item).attr("id")==t) $(item).addClass("disabled");
+			if($(item).attr("date")==t['pt_date'] && $(item).attr("id")==t['pt_time'])
+				$(item).addClass("disabled");
 		});
 		$(userList).each(function(i,t){
-			if($(item).attr("id")==t){
+			if($(item).attr("date")==t['pt_date'] && $(item).attr("id")==t['pt_time']){
 				$(".time").addClass("disabled");
-				$(item).addClass("booked");
+				if(t['request']=="requested") $(item).addClass("requested");
+				else $(item).addClass("booked");
 			}
 		});
-		if($(item).attr("id").split("_")[0]==rightNow.split("_")[0])
-			if(parseInt($(item).attr("id").split("_")[1])<=parseInt(rightNow.split("_")[1])+1)
+		if($(item).attr("date")==rightNow)
+			if(parseInt($(item).attr("id"))<=parseInt(rightNow)+1)
 				$(item).addClass("disabled");
 	});
 	// 시간 선택 시 이벤트
 	$(".time").not(".disabled").click(function(){
 		$(".time").removeClass("selected");
 		$(this).addClass('selected');
-		$("#reservDate").val($(this).attr("id"));
+		$("#reservDate").val($(this).attr("date")+"_"+$(this).attr("id"));
 	});
 }
 </script>

@@ -1,7 +1,6 @@
 package com.putupiron.pufe;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.putupiron.pufe.dao.GoodsDao;
 import com.putupiron.pufe.dao.MachineDao;
 import com.putupiron.pufe.dao.PTDao;
 import com.putupiron.pufe.dao.RecommendDao;
@@ -26,14 +26,11 @@ import com.putupiron.pufe.vo.SearchCondition;
 
 @Controller
 public class Ctrl_Home {
-	@Autowired
-	UserDao userDao;
-	@Autowired
-	MachineDao machineDao;
-	@Autowired
-	RecommendDao recDao;
-	@Autowired
-	PTDao ptDao;
+	@Autowired UserDao userDao;
+	@Autowired MachineDao machineDao;
+	@Autowired RecommendDao recDao;
+	@Autowired PTDao ptDao;
+	@Autowired GoodsDao goodsDao;
 
 //	홈 화면
 	@GetMapping("/")
@@ -55,7 +52,7 @@ public class Ctrl_Home {
 			m.addAttribute("stats", userDao.statistics());
 			break;
 		case "T":
-			m.addAttribute("today", new Date());
+			m.addAttribute("today", new java.util.Date());
 			break;
 		case "U":
 			m.addAttribute("userview", userDao.homeUserView(user_email));
@@ -84,6 +81,7 @@ public class Ctrl_Home {
 			return "login";
 		switch (user.getUser_type()) {
 		case "U":
+			m.addAttribute("goodsList", goodsDao.allGoods("noPT"));
 			return "menu_user1";
 		case "T":
 			m.addAttribute("tulist", userDao.TrainerUserView(user.getUser_email()));
@@ -113,22 +111,13 @@ public class Ctrl_Home {
 		switch (user_type) {
 		case "U":
 			ptrList = ptDao.reservList(user.getTrainer(), user_type);
-			List<List<Object>> bookedList = new ArrayList<>();
-			List<Object> list = null;
-			for (PTReserv ptr : ptrList) {
-				list = new ArrayList<>();
-				list.add(ptr.getPt_date().toString());
-				list.add(ptr.getPt_time());
-				bookedList.add(list);
+			List<String> bookedList = new ArrayList<>();
+			for(PTReserv ptr:ptrList) {
+				String dateTime = "{pt_date:'"+ptr.getPt_date()+"', pt_time:"+ptr.getPt_time()+"}";
+				bookedList.add(dateTime);
 			}
-			List<PTReserv> userBookList = ptDao.userBookList(user.getUser_email());
-			List<List<Object>> userList = new ArrayList<>();
-			for (PTReserv userPTR : userBookList) {
-				list = new ArrayList<>();
-				list.add(userPTR.getPt_date().toString());
-				list.add(userPTR.getPt_time());
-				userList.add(list);
-			}
+			List<PTReserv> userList = ptDao.userBookList(user.getUser_email());
+
 			m.addAttribute("bookedList", bookedList);
 			m.addAttribute("userList", userList);
 			return "menu_user2";
@@ -146,7 +135,6 @@ public class Ctrl_Home {
 			m.addAttribute("reqeds", reqeds);
 			return "menu_trainer2";
 		case "A":
-			navBar(session, m, hsReq);
 			int totalCnt = machineDao.searchCnt(sc);
 			PageHandler ph = new PageHandler(totalCnt, sc);
 			List<Machine> machinelist = machineDao.search(sc);
@@ -168,8 +156,7 @@ public class Ctrl_Home {
 		int totalCnt = recDao.searchCnt(sc);
 		PageHandler ph = new PageHandler(totalCnt, sc);
 		List<Recommend> list = recDao.search(sc);
-
-		m.addAttribute("now", new Date());
+		m.addAttribute("now", new java.util.Date());
 		m.addAttribute("list", list);
 		m.addAttribute("ph", ph);
 		return "boarder_recommend";

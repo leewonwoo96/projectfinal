@@ -21,12 +21,6 @@
 }
 #calendar td:first-child{color:rgb(255,70,70);}
 #calendar td:last-child{color:rgb(70,150,255);}
-#today{background-color:rgba(70,130,150,0.7);}
-.disabled{background-color:#eee; color:#aaa; cursor:default;}
-.date:not(.disabled), .time:not(.disabled){cursor:pointer;}
-.selected{background-color:rgb(70,130,150) !important;}
-.booked{background-color:rgb(250,130,0) !important;}
-.time.booked{color:#121212 !important;}
 #timeTable{
 	width:480px;
 	float:left;
@@ -48,11 +42,17 @@
 	height:60px;
 	background-color:white;
 }
-#timeTable form{width:100%;height:100%;}
-#timeTable input[type=submit]{
+#timeTable input[type=button]{
 	width:100%; height:100%;
 	border:0;
 	background-color:#121212;
 	color:white;
 	cursor:pointer;
 }
+#today{background-color:rgba(70,130,150,0.7);}
+.disabled{background-color:#eee; color:#aaa; cursor:default;}
+.date:not(.disabled), .time:not(.disabled){cursor:pointer;}
+.selected{background-color:rgb(70,130,150) !important;}
+.requested{background-color:rgb(250,130,0) !important;}
+.booked{background-color:rgb(100,200,100) !important;}
+.time.booked, .time.requested{color:#121212 !important;}
