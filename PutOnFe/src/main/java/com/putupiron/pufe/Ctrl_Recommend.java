@@ -37,6 +37,8 @@ public class Ctrl_Recommend {
 	public String read(Integer rec_num, SearchCondition sc, HttpSession session, Model m, HttpServletRequest hsReq) {
 		try {
 			navBar(session,m,hsReq);
+			String user_email = (String)session.getAttribute("email");
+			
 			Recommend recommend=recDao.read(rec_num);
 			m.addAttribute("recommend",recommend);
 			m.addAttribute("mode","read");

@@ -1,0 +1,120 @@
+@font-face {
+	font-family: mbng;
+	src: url(../fonts/Mabinogi_Classic_OTF.woff);
+}
+.container>nav>a{
+	    display: inline-block;
+    width: 150px;
+    height: 30px;
+    line-height: 26px;
+    font-size: 20px;
+    color: #121212;
+    border: 2px solid #121212;
+    border-radius: 10px;
+    margin: 0 1%;
+    text-align: center;
+}
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+input {
+	border: 0px solid black;
+	width: 16px;
+	background: rgb(238, 238, 238);
+	text-align: center;
+	padding-top: 5px;
+}
+
+.container .btn {
+	width: 200px;
+	height: 40px;
+	border: none;
+	background-color: #121212;
+	color: white;
+	cursor: pointer;
+	margin-top: 30px;
+	position: absolute;
+	right: 140px;
+}
+
+.btn2 {
+	width: 200px;
+	height: 40px;
+	border: none;
+	background-color: #121212;
+	color: white;
+	cursor: pointer;
+	margin-top: 30px;
+	position: absolute;
+	right: 865px;
+}
+
+
+
+.container {
+	width: 900px;
+	height: 70%;
+	margin: 100px auto 0 auto;
+	position: relative;
+}
+.container>h1{
+	width:100%;
+	text-align:center;
+	font-size:40px;
+	margin:20px auto;
+	
+}
+
+.goodsList {
+	overflow: auto;
+	margin: auto;
+	width: 598px;
+	height: 300px;
+	border: 1px solid #121212;
+	box-shadow: 0 0 3px #999;
+	position:relative;
+}
+
+.goods_li {
+	display: block;
+	width: 80%;
+	height: 120px;
+	margin: 20px auto;
+	border: 1px solid #bbb;
+	box-shadow: 0 0 3px #eee;
+	padding: 10px;
+}
+
+
+.removeBt {
+	position: absolute;
+	right: 65px;
+	width: 30px;
+	border: none;
+	background-color: #121212;
+	color: white;
+	cursor: pointer;
+}
+.diva{
+	float:right; position:absolute;  left:320px;
+}
+.divb{
+	position:absolute; left:480px;
+}
+::-webkit-scrollbar {
+	width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #121212;
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: #eee;
+}

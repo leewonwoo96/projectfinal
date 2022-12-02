@@ -11,7 +11,9 @@ public class Goods {
 	private	Integer times;
 	private	Integer	price;
 	
+	
 	public boolean getPT() {
+		if(PT==null) PT=0;
 		return PT==1;
 	}
 }

@@ -11,20 +11,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>철좀들어-추천정보</title>
-    <link rel="stylesheet" href="${path }/resources/css/boarder_recommend.css">
+    <link rel="stylesheet" href="${path }/resources/css/board_machines.css">
 </head>
 <body>
 <%@ include file="navMenu.jsp" %> 
 
 <div class="container">
-
+	<nav>
+		
+			<a href="<c:url value='/menu2'/>">시설관리</a>
+			<a href="<c:url value='/correction'/>">회원권 관리</a>
+			
+		
+	</nav>
 <h1>시설 관리</h1>
 
 	<table>
 	
 		<tr>
 			<th style="width: 10%;">번호</th>
-			<th style="width: 40%;">기구 이름</th>
+			<th style="width: 40%;">기구 이름</th> 
 			
 			<th style="width: 20%;">입고날짜</th>
 			
@@ -43,6 +49,8 @@
 	</table>
 	<div id="tools">
 		<button type="button" class="btn" id="writeBtn" onclick="location.href='<c:url value="/facility/write?mode=write"/>'" style="float:right;">기구 등록</button>
+		
+		
 		<div class="search-container">
 			<form action="<c:url value="/test"/>" class="search-form" method="get">
 				<select class="form-control" name="option">

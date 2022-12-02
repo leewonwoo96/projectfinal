@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.putupiron.pufe.dto.Goods;
+import com.putupiron.pufe.dto.Machine;
 
 @Repository
 public class GoodsDao_imp implements GoodsDao {
@@ -20,6 +21,10 @@ public class GoodsDao_imp implements GoodsDao {
 		return session.selectList(namespace+"allGoods",option);
 	}
 	@Override
+	public List<Goods> Goodscor() throws Exception{
+		return session.selectList(namespace+"allGoods");
+	}
+	@Override
 	public int purchase(String email, String goods_name) throws Exception {
 		Map<String,String> map = new HashMap<>();
 		map.put("email", email);
@@ -27,5 +32,20 @@ public class GoodsDao_imp implements GoodsDao {
 		if(goods_name.contains("PT")) map.put("option","yesPT");
 		else map.put("option", "noPT");
 		return session.update(namespace+"purchase",map);
+	}
+	@Override
+	public int modifygoods(Goods goods) throws Exception{
+		return session.update(namespace+"modifygoods",goods);
+	}
+	@Override
+	public int write(Goods goods) throws Exception{
+		return session.insert(namespace+"write",goods);
+	}
+	@Override
+	public int remove(Integer goods_no) throws Exception{
+		Map<String,Object> map = new HashMap<>();
+		map.put("goods_no", goods_no);
+		
+		return session.delete(namespace+"remove",map);
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.putupiron.pufe.dao.GoodsDao;
 import com.putupiron.pufe.dao.MachineDao;
 import com.putupiron.pufe.dao.UserDao;
 import com.putupiron.pufe.dto.Machine;
@@ -43,7 +44,7 @@ public class Ctrl_Machine {
 		return user;
 	}
 	@GetMapping()
-	public String test(SearchCondition sc, HttpSession session, Model m) throws Exception {
+	public String facility(SearchCondition sc, HttpSession session, Model m) throws Exception {
 		navBar(session, m);
 		User user = navBar(session, m);
 		System.out.println(user + "");

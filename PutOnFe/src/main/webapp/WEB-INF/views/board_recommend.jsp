@@ -20,15 +20,17 @@
 		<input type="hidden" id="rec_num" name="rec_num" readonly
 			value=${recommend.rec_num }> <input type="text"
 			id="rec_title" name="rec_title" placeholder="제목을 입력해주세요."
-			value=${recommend.rec_title }
+			value="${recommend.rec_title }"
 			${mode=="write"?'':'readonly="readonly"' }><br>
 		<textarea name="rec_content" id="rec_content" placeholder="내용을 입력하세요."
 			cols="30" rows="10" ${mode=="write"?'':'readonly="readonly"' }>${recommend.rec_content }</textarea>
 		<div class="button">
 
 			<input type="${mode=='write'?'button':'hidden' }" class="btn " id="writeBt" value="등록"> 
-			<input type="${mode=='read'?'button':'hidden' }" class="btn " id="modifyBt" value="수정"> 
-			<input type="${mode=='read'?'button':'hidden' }" class="btn " id="removeBt" value="삭제"> 
+			
+			
+			<input type="${mode=='read'?'button':'hidden' }" class="btn " name="modifyBt"id="modifyBt" value="수정"> 
+			<input type="${mode=='read'?'button':'hidden' }" class="btn " name="removeBt"id="removeBt" value="삭제"> 
 			<input type="${mode=='read'?'button':'hidden' }" class="btn " id="listBt" value="목록">
 			
 			
@@ -49,6 +51,15 @@
 	
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
+	if("${recommend.user_email}"!= "${sessionScope.email}"){
+		console.log("${sessionScope.email}")
+		var modifyBt = document.getElementsByName("modifyBt")[0];
+		modifyBt.setAttribute('type', 'hidden');
+		var removeBt = document.getElementsByName("removeBt")[0];
+		removeBt.setAttribute('type', 'hidden');
+	};
+	
+	
 	document.getElementById("listBt").addEventListener('click',e=>{
 		window.location="<c:url value='/recommend'/>${searchCondition.queryString}";
 	});
