@@ -27,7 +27,7 @@
 				<form  class="form" id="form${ i.index}" >
 				
 				<label class="goods_li" for="${goods.goods_no}"><input type="hidden"name="goods_no" value="${goods.goods_no}">
-				<input style="width:120px;font:25px mbng;float:left;" class="goods_name" name="goods_name" value="${goods.goods_name}">
+				<input style="width:120px;font:25px mbng;float:left;" class="goods_name" name="goods_name" value="${goods.goods_name}" required>
 						<input style="font:10px mbng;" type="button" class="removeBt" id="removeBt${ i.index}" value="삭제">
 						<br><br>	<br><br><br>
 						
@@ -81,6 +81,10 @@
  
 window.onload = function() {
 	document.getElementById('btn').onclick = function() {
+		
+		
+		
+		
 		alert("수정되었습니다.");
         let size = document.getElementsByClassName('form').length;
         for(let i=0; i<size; i++){
